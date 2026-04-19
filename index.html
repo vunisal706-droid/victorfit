@@ -228,6 +228,41 @@ html, body { height: 100%; font-family: 'Barlow', sans-serif; background: var(--
 .init-bar { background: var(--surface); border-radius: var(--r); padding: 13px 15px; box-shadow: var(--shadow); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
 .init-bar-btn { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 10px 18px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
 .done-bar { background: var(--green-light); border-radius: var(--r); padding: 13px 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--green); }
+
+/* ACADEMIA */
+.search-wrap { margin-bottom: 12px; }
+.search-input { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); font-family: 'Barlow', sans-serif; font-size: 14px; color: var(--text); transition: border-color 0.15s; -webkit-appearance: none; }
+.search-input:focus { outline: none; border-color: var(--accent); }
+.cat-chips { display: flex; gap: 6px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+.cat-chips::-webkit-scrollbar { display: none; }
+.cat-chip { flex-shrink: 0; padding: 7px 13px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--surface); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; color: var(--text2); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.3px; transition: all 0.15s; }
+.cat-chip.active { border-color: transparent; }
+.tips-list { display: flex; flex-direction: column; gap: 10px; }
+.tip-card { background: var(--surface); border-radius: var(--r); padding: 16px; box-shadow: var(--shadow); }
+.tip-head { display: flex; gap: 11px; align-items: flex-start; margin-bottom: 10px; }
+.tip-num { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; color: white; font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 900; flex-shrink: 0; }
+.tip-cat { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.tip-title { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 800; line-height: 1.2; color: var(--text); }
+.tip-body { font-size: 13px; line-height: 1.6; color: var(--text2); margin-bottom: 9px; }
+.tip-ev { font-size: 11px; font-weight: 600; color: var(--blue); background: var(--blue-light); padding: 6px 10px; border-radius: 8px; display: inline-block; }
+
+/* RIR Selector */
+.rir-wrap { margin-top: 8px; padding: 10px; background: #FFF8F0; border: 1.5px dashed #FFB380; border-radius: 10px; }
+.rir-label { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: #B84508; margin-bottom: 6px; }
+.rir-label strong { color: var(--accent); }
+.rir-opts { display: flex; gap: 5px; }
+.rir-opt { flex: 1; padding: 7px 4px; border-radius: 7px; border: 1.5px solid var(--border); background: var(--surface); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; color: var(--text2); transition: all 0.12s; text-align: center; }
+.rir-opt.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Instructor feedback */
+.instr-box { margin-top: 9px; padding: 9px 11px; border-radius: 9px; font-size: 12px; line-height: 1.5; display: flex; gap: 8px; align-items: flex-start; }
+.instr-box.good { background: var(--green-light); color: #065F46; border-left: 3px solid var(--green); }
+.instr-box.warn { background: #FEF3C7; color: #92400E; border-left: 3px solid #D97706; }
+.instr-box.info { background: var(--blue-light); color: #1E40AF; border-left: 3px solid var(--blue); }
+.instr-box.bad { background: #FEE2E2; color: #991B1B; border-left: 3px solid #DC2626; }
+.instr-box .ico { font-size: 14px; line-height: 1; flex-shrink: 0; }
+.instr-box strong { font-weight: 700; }
+
 </style>
 </head>
 <body>
@@ -244,7 +279,7 @@ html, body { height: 100%; font-family: 'Barlow', sans-serif; background: var(--
     <div class="view active" id="view-home"></div>
     <div class="view" id="view-training"></div>
     <div class="view" id="view-history"></div>
-    <div class="view" id="view-science"></div>
+    <div class="view" id="view-academia"></div>
   </main>
   <nav class="bottom-nav">
     <button class="nav-btn active" data-view="home" onclick="showView('home',this)">
@@ -256,8 +291,8 @@ html, body { height: 100%; font-family: 'Barlow', sans-serif; background: var(--
     <button class="nav-btn" data-view="history" onclick="showView('history',this)">
       <span class="nav-icon">📊</span><span>Historial</span>
     </button>
-    <button class="nav-btn" data-view="science" onclick="showView('science',this)">
-      <span class="nav-icon">🔬</span><span>Ciencia</span>
+    <button class="nav-btn" data-view="academia" onclick="showView('academia',this)">
+      <span class="nav-icon">🎓</span><span>Academia</span>
     </button>
   </nav>
 </div>
@@ -326,7 +361,7 @@ const DAYS = {
     emoji: '🔥',
     exercises: [
       {
-        id: 'press_inclinado',
+        id: 'press_inclinado', isKeyLift: true,
         name: 'Press Inclinado Mancuernas',
         muscle: 'Pecho superior — fibras claviculares',
         sets: 4, reps: '8–12', rest: 90, icon: '🏋️',
@@ -334,7 +369,7 @@ const DAYS = {
         cue: 'Banco a 30–45°. Baja las mancuernas hasta sentir el estiramiento máximo del pecho. No bloquees codos arriba. Controla la bajada 2–3 segundos.'
       },
       {
-        id: 'press_plano',
+        id: 'press_plano', isKeyLift: true,
         name: 'Press Plano Mancuernas / Barra',
         muscle: 'Pecho medio — fibras esternales',
         sets: 3, reps: '10–12', rest: 90, icon: '🏋️',
@@ -401,7 +436,7 @@ const DAYS = {
     emoji: '💪',
     exercises: [
       {
-        id: 'jalon_polea',
+        id: 'jalon_polea', isKeyLift: true,
         name: 'Jalón Polea Agarre Ancho',
         muscle: 'Dorsal — espalda amplia',
         sets: 4, reps: '10–12', rest: 90, icon: '⬇️',
@@ -409,7 +444,7 @@ const DAYS = {
         cue: 'Agarre prono, ancho. Muslos bien sujetos bajo el apoyo. Tira hacia el pecho (no el cuello). Estira completamente los brazos arriba en cada rep para aprovechar el rango completo.'
       },
       {
-        id: 'remo_maquina',
+        id: 'remo_maquina', isKeyLift: true,
         name: 'Remo Máquina / Cable Horizontal',
         muscle: 'Dorsal grosor / Romboides / Trapecio',
         sets: 4, reps: '10–14', rest: 90, icon: '🏋️',
@@ -433,7 +468,7 @@ const DAYS = {
         cue: 'Banco a 45–60°. Brazos colgando detrás del cuerpo. Curl supinando la muñeca al subir. No balancea el hombro hacia adelante. Cada rep arranca desde posición extendida.'
       },
       {
-        id: 'prensa_piernas',
+        id: 'prensa_piernas', isKeyLift: true,
         name: 'Prensa de Piernas',
         muscle: 'Cuádriceps / Glúteos / Isquios',
         sets: 4, reps: '10–15', rest: 90, icon: '🦵',
@@ -468,7 +503,7 @@ const DAYS = {
     emoji: '⚡',
     exercises: [
       {
-        id: 'press_declinado',
+        id: 'press_declinado', isKeyLift: true,
         name: 'Press Declinado Mancuernas',
         muscle: 'Pecho inferior — 2.ª sesión semanal',
         sets: 3, reps: '10–12', rest: 90, icon: '🏋️',
@@ -484,7 +519,7 @@ const DAYS = {
         cue: 'Poleas a altura de hombros. Brazos semiabiertos, ligeramente flexionados. Cruza al frente del pecho. Siente el estiramiento máximo al abrir. Movimiento controlado sin balanceo.'
       },
       {
-        id: 'dominadas',
+        id: 'dominadas', isKeyLift: true,
         name: 'Dominadas Asistidas / Jalón Neutro',
         muscle: 'Dorsal / Bíceps — 2.º estímulo',
         sets: 4, reps: '8–12', rest: 90, icon: '⬇️',
@@ -500,7 +535,7 @@ const DAYS = {
         cue: 'Polea a altura de la cara. Cuerda. Tira hacia la cara separando las manos en el tramo final. Codos arriba y hacia atrás. Pausa 1 segundo en contracción. Movimiento lento, no uses inercia.'
       },
       {
-        id: 'hack_squat',
+        id: 'hack_squat', isKeyLift: true,
         name: 'Hack Squat / Smith con Pies Adelantados',
         muscle: 'Cuádriceps — 2.º estímulo',
         sets: 4, reps: '10–12', rest: 90, icon: '🦵',
@@ -508,7 +543,7 @@ const DAYS = {
         cue: 'Pies ligeramente adelantados respecto al tronco. Baja hasta que muslos queden paralelos o más. Rodillas siguen la dirección de los pies. Empuja con el talón al subir. Control en bajada.'
       },
       {
-        id: 'hip_thrust',
+        id: 'hip_thrust', isKeyLift: true,
         name: 'Hip Thrust / Puente de Glúteos',
         muscle: 'Glúteos — activación máxima',
         sets: 4, reps: '12–15', rest: 90, icon: '🏋️',
@@ -617,7 +652,7 @@ function showView(name, btn) {
   if (name === 'home') renderHome();
   else if (name === 'training') renderTraining();
   else if (name === 'history') renderHistory();
-  else if (name === 'science') renderScience();
+  else if (name === 'academia') renderAcademia();
   document.getElementById('main').scrollTop = 0;
 }
 
@@ -710,8 +745,26 @@ function renderHome() {
     </div>
     <div class="section-hdr">Esta semana</div>
     ${weekHTML}
+    ${renderTipOfDay()}
     <div class="section-hdr">Programa semanal</div>
     ${progItems}
+  `;
+}
+
+function renderTipOfDay() {
+  // Deterministic daily tip
+  const today = new Date();
+  const dayOfYear = Math.floor((today - new Date(today.getFullYear(),0,0)) / 86400000);
+  const tip = TIPS[dayOfYear % TIPS.length];
+  const cat = TIPS_CATS[tip.cat];
+  return `
+    <div class="section-hdr">🎓 Tip del día</div>
+    <div class="tip-card" style="cursor:pointer;border-left:3px solid ${cat.color};" onclick="showView('academia')">
+      <div class="tip-cat" style="color:${cat.color};font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">${cat.emoji} ${cat.name}</div>
+      <div class="tip-title" style="font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;line-height:1.2;margin-bottom:7px;">${tip.t}</div>
+      <div class="tip-body" style="font-size:13px;line-height:1.55;color:var(--text2);margin-bottom:8px;">${tip.b.split('.')[0]}.</div>
+      <div style="font-size:11px;color:var(--accent);font-weight:700;">Ver completo en Academia →</div>
+    </div>
   `;
 }
 
@@ -882,6 +935,27 @@ function renderExCard(ex, idx, dk, isActive, existingWo) {
   const borderColor = isExDone ? 'var(--green)' : isActive ? prog.color : 'var(--border)';
   const readOnly = ''; // siempre editable — permite planificar/corregir cualquier día
 
+  // RIR selector HTML (solo para key lifts — compuestos principales)
+  const rirHTML = ex.isKeyLift ? `
+    <div class="rir-wrap">
+      <div class="rir-label">🎯 <strong>RIR</strong> — ¿reps en el tanque al acabar la última serie? <em style="font-weight:500;color:var(--text3)">(opcional)</em></div>
+      <div class="rir-opts">
+        ${[0,1,2,3,4].map(n => {
+          const isActiveVal = displaySets[displaySets.length-1]?.rir === n;
+          return `<button class="rir-opt${isActiveVal?' active':''}"
+            onclick="setRIR('${ex.id}',${n},'${dk}')">${n}${n===4?'+':''}</button>`;
+        }).join('')}
+      </div>
+    </div>` : '';
+
+  // Instructor feedback
+  const feedback = getInstructorFeedback(ex, displaySets);
+  const instrHTML = feedback ? `
+    <div class="instr-box ${feedback.type}">
+      <div class="ico">${feedback.icon}</div>
+      <div>${feedback.msg}</div>
+    </div>` : '';
+
   const setsContent = `
     <div style="margin-bottom:10px;">
       <table class="sets-tbl">
@@ -907,19 +981,21 @@ function renderExCard(ex, idx, dk, isActive, existingWo) {
         </tbody>
       </table>
     </div>
+    ${rirHTML}
+    ${instrHTML}
     <button onclick="startTimer(${ex.rest})" style="
       width:100%;padding:10px;border-radius:9px;border:none;
       background:var(--surface2);color:var(--text2);
       font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;
       cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;
-      transition:background 0.15s;letter-spacing:0.3px;
+      transition:background 0.15s;letter-spacing:0.3px;margin-top:9px;
     ">⏱ Iniciar descanso · ${ex.rest}s</button>`;
 
   return `
     <div class="ex-card${isExDone?' done':isActive?' active':''}" style="border-left-color:${borderColor}">
       <div class="ex-head">
         <div>
-          <div class="ex-num">Ejercicio ${idx+1} · ${ex.muscle}</div>
+          <div class="ex-num">Ejercicio ${idx+1} · ${ex.muscle}${ex.isKeyLift?' · 🔑':''}</div>
           <div class="ex-name">${ex.name}</div>
         </div>
         <div class="ex-badge" style="background:${prog.colorLight};color:${prog.color}">${ex.sets}×${ex.reps}</div>
@@ -929,6 +1005,160 @@ function renderExCard(ex, idx, dk, isActive, existingWo) {
       ${prevBest?`<div class="ex-prev">Última sesión: <span class="ex-prev-badge">🏆 ${prevBest}</span></div>`:''}
       ${setsContent}
     </div>`;
+}
+
+// ============================================================
+// INSTRUCTOR — Lógica de feedback en tiempo real
+// ============================================================
+
+function parseRepRange(repsStr) {
+  // "8–12" → {min: 8, max: 12}
+  const parts = repsStr.split(/[–-]/).map(x => parseInt(x.trim()));
+  return { min: parts[0], max: parts[1] || parts[0] };
+}
+
+function getLastCompletedSession(exId, excludeDate) {
+  const ws = S.workouts;
+  const candidates = Object.entries(ws)
+    .filter(([d, w]) => w.completed && w.exercises[exId] && d !== excludeDate)
+    .sort(([a], [b]) => b.localeCompare(a));
+  return candidates[0] ? { date: candidates[0][0], workout: candidates[0][1] } : null;
+}
+
+function getInstructorFeedback(ex, currentSets) {
+  const range = parseRepRange(ex.reps);
+  const completedSets = currentSets.filter(s => s.done && s.weight && s.reps);
+
+  // === 1. Comprobar salto de peso vs. sesión anterior ===
+  const firstSetWithWeight = currentSets.find(s => s.weight);
+  if (firstSetWithWeight && firstSetWithWeight.weight) {
+    const prev = getLastCompletedSession(ex.id, todayKey());
+    if (prev) {
+      const prevSets = prev.workout.exercises[ex.id].filter(s => s.done && s.weight);
+      if (prevSets.length > 0) {
+        const prevMaxW = Math.max(...prevSets.map(s => parseFloat(s.weight)));
+        const currW = parseFloat(firstSetWithWeight.weight);
+        const jump = ((currW - prevMaxW) / prevMaxW) * 100;
+        const threshold = ex.isKeyLift ? 5 : 10;
+        if (jump > threshold) {
+          return {
+            type: 'warn',
+            icon: '⚠️',
+            msg: `<strong>Salto grande:</strong> +${jump.toFixed(1)}% sobre tu última sesión (${prevMaxW}kg). La evidencia recomienda progresiones del ${ex.isKeyLift?'2.5–5':'5–10'}%. Arriesgas técnica y lesión.`
+          };
+        }
+        if (jump < -8) {
+          return {
+            type: 'info',
+            icon: '📉',
+            msg: `Has bajado ${Math.abs(jump).toFixed(1)}% respecto a tu última sesión (${prevMaxW}kg). Si es deliberado para priorizar técnica o RIR, perfecto. Si no, considera mantener la carga.`
+          };
+        }
+      }
+    }
+  }
+
+  // === 2. Si el ejercicio está completo, analizar y recomendar ===
+  if (completedSets.length >= ex.sets) {
+    const reps = completedSets.map(s => parseInt(s.reps));
+    const weights = completedSets.map(s => parseFloat(s.weight));
+    const avgReps = reps.reduce((a,b)=>a+b,0) / reps.length;
+    const allAtTop = reps.every(r => r >= range.max);
+    const allAbove = reps.every(r => r > range.max);
+    const anyBelow = reps.some(r => r < range.min);
+    const lastRIR = completedSets[completedSets.length-1]?.rir;
+
+    // Todas las series al top del rango → subir peso
+    if (allAtTop && (lastRIR === undefined || lastRIR <= 1)) {
+      const currW = Math.max(...weights);
+      const increment = ex.isKeyLift ? 2.5 : 1.25;
+      return {
+        type: 'good',
+        icon: '✅',
+        msg: `<strong>Dominaste las ${ex.sets} series al top del rango.</strong> Próxima sesión: sube a <strong>${(currW+increment).toFixed(1)}kg</strong> (+${increment}kg). Principio de sobrecarga progresiva confirmado (Enes 2024).`
+      };
+    }
+
+    // Todas por encima del rango → subir más agresivo
+    if (allAbove) {
+      const currW = Math.max(...weights);
+      const increment = ex.isKeyLift ? 5 : 2.5;
+      return {
+        type: 'good',
+        icon: '🚀',
+        msg: `<strong>Has superado el rango de reps.</strong> El peso está corto para ti. Próxima sesión: sube a <strong>${(currW+increment).toFixed(1)}kg</strong> (+${increment}kg).`
+      };
+    }
+
+    // Alguna serie por debajo del rango → peso demasiado alto
+    if (anyBelow) {
+      const currW = Math.max(...weights);
+      const decrement = ex.isKeyLift ? 2.5 : 1.25;
+      return {
+        type: 'bad',
+        icon: '⬇️',
+        msg: `<strong>Alguna serie bajo el rango (${ex.reps} reps):</strong> el peso está por encima de tu capacidad actual. Próxima sesión: baja a <strong>${(currW-decrement).toFixed(1)}kg</strong> y progresa con técnica limpia.`
+      };
+    }
+
+    // En rango con RIR alto → podrías haber empujado más
+    if (lastRIR !== undefined && lastRIR >= 3) {
+      return {
+        type: 'info',
+        icon: '💡',
+        msg: `<strong>Te quedaron ${lastRIR}+ reps en el tanque.</strong> Según Refalo 2024, la zona óptima de hipertrofia es RIR 0–3. Próxima serie/sesión: sube peso o haz más reps. Recuerda que a los 50 solemos subestimar el RIR (Andrade 2025).`
+      };
+    }
+
+    // En rango con RIR 0-2 → perfecto, mantener
+    if (lastRIR !== undefined && lastRIR <= 2) {
+      return {
+        type: 'good',
+        icon: '🎯',
+        msg: `<strong>Zona óptima:</strong> ${avgReps.toFixed(0)} reps medias en rango con RIR ${lastRIR}. Mantén esta carga hasta dominar el top del rango en las ${ex.sets} series.`
+      };
+    }
+
+    // Detección de estancamiento (3+ sesiones con mismos números)
+    const stagn = detectStagnation(ex.id);
+    if (stagn) {
+      return {
+        type: 'warn',
+        icon: '📊',
+        msg: `<strong>${stagn} sesiones sin progresar</strong> en este ejercicio. Opciones: a) intentar +1 rep; b) bajar peso 10% y progresar; c) cambiar variante (ángulo, agarre) durante 2 semanas.`
+      };
+    }
+  }
+
+  return null;
+}
+
+function detectStagnation(exId) {
+  const ws = S.workouts;
+  const sessions = Object.entries(ws)
+    .filter(([, w]) => w.completed && w.exercises[exId])
+    .sort(([a], [b]) => b.localeCompare(a))
+    .slice(0, 4);
+  if (sessions.length < 3) return 0;
+  const maxWeights = sessions.map(([, w]) => {
+    const sets = w.exercises[exId].filter(s => s.done && s.weight);
+    return sets.length ? Math.max(...sets.map(s => parseFloat(s.weight))) : 0;
+  });
+  // Si las últimas 3 sesiones tienen el mismo peso max
+  if (maxWeights[0] && maxWeights[0] === maxWeights[1] && maxWeights[0] === maxWeights[2]) {
+    return 3;
+  }
+  return 0;
+}
+
+function setRIR(exId, rirValue, dayKey) {
+  const wo = ensureWorkout(dayKey);
+  if (!wo?.exercises?.[exId]) return;
+  const sets = wo.exercises[exId];
+  // Aplicar RIR a la última serie registrada (con datos)
+  const lastIdx = sets.length - 1;
+  sets[lastIdx].rir = rirValue;
+  renderTraining();
 }
 
 function updateSet(exId, si, field, val) {
@@ -1105,62 +1335,172 @@ function showWoDetail(date) {
 }
 
 // ============================================================
-// SCIENCE VIEW
+// ACADEMIA — 50+ TIPS CIENTÍFICOS (investigación 2021–2025)
 // ============================================================
 
-function renderScience() {
-  document.getElementById('view-science').innerHTML = `
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:3px">Evidencia 2021–2024</div>
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:25px;font-weight:900;margin-bottom:3px">La ciencia del programa</div>
-    <div style="font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.5">Diseñado para hombre 50 años, 72kg, 15+ años de experiencia, objetivo hipertrofia máxima llegando a junio bien.</div>
+const TIPS_CATS = {
+  entrenamiento: { emoji: '🏋️', name: 'Entrenamiento', color: '#E8460A' },
+  nutricion:     { emoji: '🥩', name: 'Nutrición',     color: '#059669' },
+  recuperacion:  { emoji: '😴', name: 'Recuperación',  color: '#1565C0' },
+  hormonas:      { emoji: '🧬', name: 'Hormonas 50+',  color: '#7C3AED' },
+  mentalidad:    { emoji: '🧠', name: 'Mentalidad',    color: '#D97706' }
+};
 
-    <div class="sci-card">
-      <h3>🔥 Tensión en posición elongada</h3>
-      <span class="sci-tag">Kassiano et al. 2023</span><span class="sci-tag">Maeo et al. 2021–2022</span>
-      <p>El descubrimiento más importante de los últimos años en ciencia del ejercicio: los ejercicios que cargan el músculo en su posición de máximo estiramiento producen <strong>hasta 2× más hipertrofia</strong> que los mismos ejercicios en posición acortada.</p>
-      <p>Por eso el programa prioriza: cruce de poleas sobre aperturas con mancuernas, curl inclinado sobre curl de pie, extensión de tríceps overhead sobre la cuerda hacia abajo, RDL sobre leg press, y curl femoral tumbado sobre sentado.</p>
+const TIPS = [
+  // ===== ENTRENAMIENTO =====
+  { cat:'entrenamiento', t:'Proximidad al fallo, no número exacto de reps', ev:'Refalo et al. 2024 · Schoenfeld 2017', b:'El estímulo de crecimiento viene de las últimas 3–5 repeticiones antes del fallo. Entrenar a 0–3 RIR (reps en reserva) produce la misma hipertrofia que entrenar al fallo total, con mucha menos fatiga. Lo determinante es la proximidad al fallo, no el número total de reps.' },
+  { cat:'entrenamiento', t:'RIR 0–3: la zona óptima de hipertrofia', ev:'Refalo, Helms, Trexler 2024', b:'La meta-regresión de 2024 confirma que trabajar entre RIR 0 y RIR 3 (es decir, dejando 0 a 3 reps en el tanque) es el sweet spot para hipertrofia. Por encima de RIR 4 la magnitud del estímulo cae significativamente. Por eso la app te pide registrar el RIR en los compuestos clave.' },
+  { cat:'entrenamiento', t:'A los 50 subestimas tu RIR lejos del fallo', ev:'Andrade et al. 2025', b:'Estudio específico en adultos 50–70 años: cuando crees que te quedan 4 reps, en realidad te quedan solo 2. La precisión del RIR mejora al acercarse al fallo. Conclusión práctica: si dices RIR 2, probablemente estás en RIR 0. Entrena con margen y confía en que el estímulo ya está siendo suficiente.' },
+  { cat:'entrenamiento', t:'Rango de movimiento completo siempre', ev:'McMahon 2014 · Wolf et al. 2024 (regional hypertrophy)', b:'Rango completo produce hasta un 40% más de hipertrofia que parciales. La meta-análisis 2024 sobre hipertrofia regional confirma que trabajar a longitudes musculares mayores (posición elongada) amplifica el crecimiento, especialmente en las fibras distales del músculo.' },
+  { cat:'entrenamiento', t:'La bajada (excéntrica) importa tanto como la subida', ev:'Schoenfeld & Grgic 2018', b:'La fase excéntrica produce más daño muscular y más hipertrofia por unidad de tiempo. Controla siempre la bajada en 2–3 segundos. No dejes caer el peso.' },
+  { cat:'entrenamiento', t:'Progresión de carga: el driver número 1', ev:'Enes et al. 2024 · Pelland et al. 2024', b:'La meta-regresión más reciente (Pelland 2024) confirma que el volumen y la carga progresiva son los drivers principales de hipertrofia, con rendimientos decrecientes a volumen alto. Si no subes el peso o las reps cada 1–2 semanas, no hay estímulo nuevo para crecer.' },
+  { cat:'entrenamiento', t:'Estiramiento en la posición de carga', ev:'Kassiano 2023 · Warneke 2024 · Arntz & Schoenfeld 2024', b:'Los ejercicios que cargan el músculo en posición elongada producen más hipertrofia que en posición acortada. Aplica a todos los grupos musculares: cruce de poleas sobre aperturas planas, curl inclinado sobre curl de pie, extensión overhead sobre cuerda, curl femoral tumbado sobre sentado.' },
+  { cat:'entrenamiento', t:'Frecuencia: 2× por músculo a la semana', ev:'Pelland et al. 2024 (meta-regresión)', b:'La evidencia más reciente muestra que 2 estímulos semanales por grupo muscular producen más hipertrofia que 1, con rendimientos decrecientes más allá. A los 50, con recuperación algo más lenta, 2 estímulos distribuidos en 3 sesiones es el balance óptimo.' },
+  { cat:'entrenamiento', t:'10–20 series semanales por grupo muscular', ev:'Schoenfeld 2017 · Ironmaster 2024 · Weightology 2024', b:'Rango óptimo: 10–20 series efectivas por grupo muscular a la semana. Por debajo de 10 es insuficiente para avanzados. Por encima de 20 los rendimientos decrecen y aparece interferencia con la recuperación. Algunos individuos responden hasta a 30+ series, pero son excepción.' },
+  { cat:'entrenamiento', t:'Varía ángulo y agarre, no cambies de ejercicio', ev:'Baz-Valle et al. 2022', b:'No necesitas rotar de ejercicio cada mes. Cambiar el agarre, el ángulo del banco o el tipo de resistencia (barra vs mancuernas vs polea) es suficiente para dar un estímulo nuevo sin romper la técnica aprendida ni la progresión de carga.' },
+  { cat:'entrenamiento', t:'Compuestos primero, siempre', ev:'Simão et al. 2012', b:'Press, jalón, sentadilla y hip thrust van al inicio de la sesión cuando tienes más energía. La fatiga acumulada antes de un compuesto pesado compromete la técnica, reduce la carga manejable y aumenta el riesgo de lesión.' },
+  { cat:'entrenamiento', t:'No hagas cardio justo antes de fuerza', ev:'Wilson et al. 2012', b:'El cardio previo reduce el rendimiento en fuerza un 10–15%. Si lo haces el mismo día, ponlo después del entrenamiento de fuerza o en sesión separada por al menos 6 horas.' },
+  { cat:'entrenamiento', t:'90 segundos de descanso entre series', ev:'Schoenfeld et al. 2016 · Grgic 2018', b:'90 segundos es el punto de equilibrio entre recuperación suficiente para mantener cargas altas y maximización de la respuesta hormonal anabólica. Descansos cortos (<60s) reducen el rendimiento; más largos (>3 min) no añaden beneficio para hipertrofia.' },
+  { cat:'entrenamiento', t:'No siempre al fallo absoluto', ev:'Refalo et al. 2024', b:'Entrenar siempre al fallo muscular total aumenta la fatiga sistémica sin beneficio adicional en hipertrofia. Quédate a 1–2 reps del fallo en la mayoría de series. Llega al fallo solo en la última serie de cada ejercicio si quieres.' },
+  { cat:'entrenamiento', t:'Mancuernas para compuestos, poleas para aislar', ev:'Saeterbakken & Fimland 2013', b:'Las mancuernas producen más hipertrofia que la barra en muchos compuestos por su mayor rango de movimiento. Las poleas son superiores a las mancuernas para aislamiento: mantienen tensión constante durante todo el rango, mientras que las mancuernas tienen cero tensión al inicio o final del movimiento.' },
+  { cat:'entrenamiento', t:'No te obsesiones con el pump', ev:'Schoenfeld et al. 2021', b:'La congestión (pump) es un indicador de buen entrenamiento, pero no es el mecanismo de hipertrofia. La progresión de carga y la tensión mecánica son los drivers reales. Un entreno sin pump pero con progresión funciona mejor que uno con pump sin progresión.' },
+  { cat:'entrenamiento', t:'Calentamiento: 2 series ligeras son suficientes', ev:'Ribeiro et al. 2014', b:'No necesitas 4–5 series de calentamiento que consumen energía. 2 series al 50% y 70% de tu carga de trabajo preparan el músculo y el sistema nervioso sin generar fatiga innecesaria para las series efectivas.' },
+  { cat:'entrenamiento', t:'La técnica es el techo de la carga', ev:'Consenso IUSCA 2021', b:'Añadir peso con mala técnica no genera más estímulo muscular: genera más riesgo. Perfecciona la ejecución antes de añadir kilos. La progresión con técnica limpia es la única progresión real a largo plazo.' },
+  { cat:'entrenamiento', t:'Varía un parámetro cada 6–8 semanas', ev:'Kraemer & Ratamess 2004', b:'El sistema nervioso se adapta al patrón antes que el músculo. Cada 6–8 semanas cambia algo: ángulo, agarre, tipo de resistencia o tempo. No hace falta cambiar todo el programa, solo un parámetro cada vez.' },
+
+  // ===== NUTRICIÓN =====
+  { cat:'nutricion', t:'Proteína mínima: 1.6g por kg de peso', ev:'Morton et al. 2018', b:'Para un hombre de 72kg: mínimo 115g/día. Con tus ~170g estás en el rango óptimo superior (~2.4g/kg), que es la zona de seguridad anabólica y protección muscular incluso en déficit calórico.' },
+  { cat:'nutricion', t:'Distribuye en 4–5 tomas de 30–40g', ev:'Stokes et al. 2018', b:'La síntesis proteica muscular se activa cada 3–4 horas con una dosis umbral de ~0.4g/kg por toma. Más de 40g en una toma no añade beneficio inmediato: mejor fraccionar a lo largo del día. Tu pauta (batidos mañana/tarde/noche + comidas + yogures) está perfectamente distribuida.' },
+  { cat:'nutricion', t:'Proteína antes de dormir aumenta la síntesis 22%', ev:'Res et al. 2012 · Korzepa 2025', b:'40g de caseína o proteína lenta antes de dormir aumenta la síntesis proteica muscular nocturna un 22%. El yogur proteico del Mercadona antes de acostarte cumple exactamente esta función. No lo dejes.' },
+  { cat:'nutricion', t:'Déficit calórico moderado: 300–500 kcal/día', ev:'Helms et al. 2014', b:'Para perder grasa manteniendo músculo: déficit de 300–500 kcal/día. Más de 500 kcal empieza a catabolizar músculo incluso con alta proteína. Menos de 300 kcal puede ser demasiado lento para ver resultados hasta junio.' },
+  { cat:'nutricion', t:'Carbohidratos antes del entreno', ev:'Kerksick et al. 2017', b:'30–60g de carbohidratos 1–2 horas antes del entrenamiento mejoran el rendimiento, la intensidad y la recuperación intrasesión. Tu avena con el batido matutino hace exactamente esto. Si entrenas por la tarde, puedes comer una fruta o un yogur con avena 45–60 min antes.' },
+  { cat:'nutricion', t:'Come proteína + carbohidratos en las 2 horas post-entreno', ev:'Aragon & Schoenfeld 2013', b:'La ventana anabólica no es tan estrecha como se pensaba, pero existe. Una comida con proteína (30–40g) y carbohidratos (50–80g) en las 2 horas post-entreno optimiza la recuperación muscular y la reposición de glucógeno.' },
+  { cat:'nutricion', t:'Creatina monohidrato: 5g/día, el suplemento más respaldado', ev:'Bonilla et al. 2024 · Candow 2024', b:'5g/día de creatina monohidrato sin fase de carga. La revisión 2024 (Bonilla) confirma que creatina + entrenamiento de fuerza es la estrategia no-farmacológica más efectiva para sarcopenia y vitalidad en adultos 50+. A tu edad tiene también beneficio cognitivo documentado. Si no la tomas, empiézala.' },
+  { cat:'nutricion', t:'Cafeína: mejora el rendimiento un 10–15%', ev:'Grgic et al. 2020', b:'3–6 mg/kg de cafeína 30–45 minutos antes del entreno. Para ti: un café solo fuerte o doble. Funciona mejor si no eres consumidor habitual crónico. Considera ciclarla: 5 días sí, 2 días no, para mantener la sensibilidad.' },
+  { cat:'nutricion', t:'Las grasas no son el enemigo', ev:'Volek et al. 1997', b:'0.8–1g/kg de grasa al día es el mínimo para mantener la producción hormonal (testosterona, GH). Con poca grasa baja la testosterona. Las grasas saludables (aceite de oliva, frutos secos, aguacate, pescado azul) son obligatorias, especialmente a los 50.' },
+  { cat:'nutricion', t:'El alcohol destruye la síntesis proteica', ev:'Parr et al. 2014', b:'El alcohol post-entreno reduce la síntesis proteica un 24% incluso con alta ingesta de proteína. Un par de cervezas el viernes noche básicamente cancela el entrenamiento del viernes. Si bebes, intenta separarlo del día de entreno.' },
+  { cat:'nutricion', t:'Fibra: 25–35g al día', ev:'Slavin 2013', b:'Verduras, legumbres, avena. La fibra regula el cortisol, mejora la sensibilidad a la insulina y reduce la inflamación de bajo grado (muy común a los 50), que interfiere directamente con la hipertrofia y la recuperación.' },
+  { cat:'nutricion', t:'Hidratación: 35–40ml por kg', ev:'Judelson et al. 2007', b:'Para 72kg: 2.5–3L al día. Una deshidratación del 2% reduce la fuerza un 10%. El músculo es 75% agua. El café, té e infusiones cuentan.' },
+  { cat:'nutricion', t:'Adherencia > perfección', ev:'Willoughby et al. 2018', b:'La adherencia a largo plazo (años, no semanas) es el factor nutricional más importante. Una dieta que puedes mantener el 90% del tiempo supera a una "perfecta" que abandonas en 3 semanas. No demonices alimentos concretos.' },
+
+  // ===== RECUPERACIÓN =====
+  { cat:'recuperacion', t:'Sueño: el anabolizante gratuito más potente', ev:'Leproult & Van Cauter 2011', b:'Durante el sueño profundo se libera el 70% de la hormona de crecimiento diaria. Menos de 7 horas reduce la testosterona un 15% en una sola semana. El sueño es parte del entrenamiento, no una opción.' },
+  { cat:'recuperacion', t:'7–9 horas, no negociable', ev:'Dattilo et al. 2011', b:'No existe adaptación a dormir poco. La deuda de sueño es acumulativa y no se recupera del todo el fin de semana. Proteger las 7–9 horas es tan importante como proteger la proteína o el entrenamiento.' },
+  { cat:'recuperacion', t:'Dormitorio a 18–19°C', ev:'Okamoto-Mizuno 2012', b:'18–19°C es la temperatura óptima para el sueño profundo y la liberación de GH. Cada grado por encima reduce la calidad del sueño de forma medible.' },
+  { cat:'recuperacion', t:'Sin pantallas 45 minutos antes de dormir', ev:'Chang et al. 2015', b:'La luz azul suprime la melatonina hasta 3 horas. Si no puedes evitarlas, usa modo noche o gafas de filtro ámbar. Mejor: leer en papel o música relajante.' },
+  { cat:'recuperacion', t:'Días de descanso activo, no sedentarios', ev:'Dupuy et al. 2018', b:'Caminar 20–30 minutos en días de descanso mejora la circulación y acelera la recuperación muscular. El reposo absoluto es inferior a la recuperación activa moderada.' },
+  { cat:'recuperacion', t:'Foam roller y masaje reducen el DOMS', ev:'Wiewelhove et al. 2019', b:'El foam roller no acelera la hipertrofia, pero reduce el dolor muscular tardío y permite entrenar mejor la sesión siguiente. 5–10 minutos post-entreno o en días de descanso.' },
+  { cat:'recuperacion', t:'El estrés crónico es antimusculación', ev:'Stults-Kolehmainen 2014', b:'El cortisol elevado de forma crónica inhibe la síntesis proteica y acelera el catabolismo muscular. El manejo del estrés (meditación, naturaleza, tiempo offline) es parte del entrenamiento a los 50.' },
+  { cat:'recuperacion', t:'Baño frío: con moderación', ev:'Roberts et al. 2015', b:'El agua fría inmediatamente post-entreno reduce la inflamación (útil para recuperación) pero también atenúa parcialmente la señal de hipertrofia. Mejor: esperar 4–6 horas o usarlo en días de descanso, no justo tras el entreno.' },
+  { cat:'recuperacion', t:'Deload cada 6–8 semanas', ev:'Bell et al. 2020', b:'Una semana con volumen reducido al 40–50% no pierde músculo: consolida las ganancias, restaura los niveles hormonales y permite entrenar con más intensidad las semanas siguientes. Planifica un deload cada 6–8 semanas de trabajo intenso.' },
+
+  // ===== HORMONAS 50+ =====
+  { cat:'hormonas', t:'La fuerza es el mejor regulador hormonal natural', ev:'Kraemer & Ratamess 2005', b:'Series de 3–8 reps con cargas altas (80–90% 1RM) producen la mayor respuesta aguda de testosterona y GH. Incluir al menos un bloque de fuerza pesada en el programa (press inclinado, jalones, prensa) mantiene la producción endógena.' },
+  { cat:'hormonas', t:'Vitamina D3: 2000–4000 UI/día', ev:'Pilz et al. 2011', b:'El 80% de los adultos en España tienen niveles insuficientes. La vitamina D es precursora de testosterona. Suplementación con 2000–4000 UI al día, con comida grasa para absorción. Análisis anual para ajustar dosis según niveles.' },
+  { cat:'hormonas', t:'Magnesio y zinc regulan la testosterona', ev:'Cinar et al. 2011 · Wilborn 2004', b:'300–400mg de magnesio glicinato antes de dormir mejora la calidad del sueño y la testosterona libre. El zinc (15–30mg) evita la conversión excesiva de testosterona en estrógeno. Ambos especialmente importantes después de los 45.' },
+  { cat:'hormonas', t:'Índice glucémico importa más a los 50', ev:'Volpi et al. 2013', b:'La sensibilidad a la insulina disminuye con la edad. Prioriza carbohidratos de absorción lenta (avena, legumbres, arroz integral, boniato) sobre los rápidos, excepto en la comida post-entreno donde los rápidos son útiles.' },
+  { cat:'hormonas', t:'Análisis sanguíneo anual con perfil hormonal', ev:'Práctica clínica estándar', b:'A los 50, pide: testosterona total, testosterona libre, SHBG, estradiol, TSH, vitamina D, ferritina, glucosa y perfil lipídico. Esto es información de entrenamiento, no solo de salud. Te permite ajustar el programa y la nutrición a datos reales.' },
+  { cat:'hormonas', t:'Ayuno intermitente: úsalo si te funciona', ev:'Tinsley & Bounty 2015', b:'Si el ayuno reduce calorías sin afectar la proteína ni el rendimiento, puede ser útil. Si comprime las tomas de proteína en ventanas muy cortas, limita la síntesis proteica. Ajusta según resultados reales, no según la moda.' },
+
+  // ===== MENTALIDAD =====
+  { cat:'mentalidad', t:'Consistencia > perfección', ev:'Hall 2018', b:'3 entrenos semanales durante 3 años producen más resultados que el programa "perfecto" que abandonas en 2 meses. La adherencia es la variable más importante de todas. Tus 3 días/semana durante años es exactamente esto.' },
+  { cat:'mentalidad', t:'Registra todo — sin datos no hay progresión', ev:'Cotter 2019', b:'Las personas que registran sus entrenos progresan significativamente más que las que no lo hacen. No por magia: porque la progresión de carga requiere saber de dónde partes. La app hace esto por ti.' },
+  { cat:'mentalidad', t:'Compárate solo con tu versión de hace 3 meses', ev:'Psicología del rendimiento', b:'El rendimiento a los 50 no se compara con el de los 30, se compara con el tuyo de hace un trimestre. La progresión es el objetivo, no un número absoluto. La app te muestra la evolución en "Historial".' },
+  { cat:'mentalidad', t:'Resultados visibles a las 8–12 semanas', ev:'Counts et al. 2017', b:'Los cambios reales en composición corporal empiezan a verse a las 8–12 semanas de entrenamiento constante. Todo lo anterior es inflamación, adaptación neuromuscular y retención hídrica. La grasa tarda en moverse. La consistencia gana siempre al corto plazo.' },
+  { cat:'mentalidad', t:'La regla de los 5 minutos', ev:'BJ Fogg — Tiny Habits 2019', b:'Cuando no te apetezca ir: solo te comprometes a llegar al gimnasio y hacer una serie. El 95% de las veces que empiezas, terminas el entreno completo. La resistencia está en el arranque, no en el entrenamiento.' }
+];
+
+// ============================================================
+// ACADEMIA VIEW
+// ============================================================
+
+let academiaFilter = { cat: 'all', search: '' };
+
+function renderAcademia() {
+  const c = document.getElementById('view-academia');
+  const catBtns = [
+    `<button class="cat-chip${academiaFilter.cat==='all'?' active':''}" onclick="setAcademiaCat('all')"
+      style="${academiaFilter.cat==='all'?'background:var(--text);color:white':''}">TODOS (${TIPS.length})</button>`
+  ].concat(Object.entries(TIPS_CATS).map(([key,cat])=>{
+    const n = TIPS.filter(t=>t.cat===key).length;
+    const active = academiaFilter.cat===key;
+    return `<button class="cat-chip${active?' active':''}" onclick="setAcademiaCat('${key}')"
+      style="${active?`background:${cat.color};color:white`:''}">${cat.emoji} ${cat.name} (${n})</button>`;
+  })).join('');
+
+  // Filter tips
+  const q = academiaFilter.search.toLowerCase().trim();
+  const filtered = TIPS.filter(t => {
+    if (academiaFilter.cat !== 'all' && t.cat !== academiaFilter.cat) return false;
+    if (!q) return true;
+    return (t.t + ' ' + t.b + ' ' + t.ev).toLowerCase().includes(q);
+  });
+
+  const tipsHTML = filtered.length === 0
+    ? `<div class="empty-st"><div class="ico">🔎</div><h3>Sin resultados</h3><p>Prueba otro filtro o término</p></div>`
+    : filtered.map((tip, i) => {
+        const cat = TIPS_CATS[tip.cat];
+        const idx = TIPS.indexOf(tip) + 1;
+        return `<div class="tip-card">
+          <div class="tip-head">
+            <div class="tip-num" style="background:${cat.color}">${idx}</div>
+            <div>
+              <div class="tip-cat" style="color:${cat.color}">${cat.emoji} ${cat.name}</div>
+              <div class="tip-title">${tip.t}</div>
+            </div>
+          </div>
+          <div class="tip-body">${tip.b}</div>
+          <div class="tip-ev">📚 ${tip.ev}</div>
+        </div>`;
+      }).join('');
+
+  c.innerHTML = `
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:3px">Evidencia 2021–2025</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:25px;font-weight:900;margin-bottom:3px">Academia VictorFit</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5">${TIPS.length} principios con base científica para maximizar tus resultados a los 50.</div>
+
+    <div class="search-wrap">
+      <input type="text" class="search-input" placeholder="🔎 Buscar en los tips..."
+        value="${academiaFilter.search}" oninput="setAcademiaSearch(this.value)">
     </div>
 
-    <div class="sci-card">
-      <h3>🧬 Frecuencia óptima a los 50</h3>
-      <span class="sci-tag">Schoenfeld & Krieger 2016</span><span class="sci-tag">Milo Wolf 2023</span>
-      <p>La evidencia muestra que 2 estímulos por músculo a la semana es el punto óptimo para hipertrofia en personas con experiencia. A los 50, la recuperación es algo más lenta, por lo que 3 días con 2 estímulos por grupo muscular es el balance perfecto.</p>
-      <p>Con este split, pecho y hombros reciben estímulo martes + viernes, espalda y bíceps miércoles + viernes, piernas martes/miércoles + viernes, y abdomen los 3 días.</p>
-    </div>
+    <div class="cat-chips">${catBtns}</div>
 
-    <div class="sci-card">
-      <h3>💪 Rango de reps para hipertrofia</h3>
-      <span class="sci-tag">Schoenfeld et al. 2017</span><span class="sci-tag">Lasevicius 2019</span>
-      <p>Las investigaciones más recientes confirman que cualquier rango (6–30 reps) produce hipertrofia similar si se trabaja cerca del fallo muscular. Lo determinante es la proximidad al fallo, no el número exacto de reps.</p>
-      <p>El programa usa 8–12 para compuestos (mayor carga mecánica) y 12–20 para aislamiento (mayor bomba, tiempo bajo tensión, menor fatiga articular).</p>
-    </div>
-
-    <div class="sci-card">
-      <h3>⭕ Abdomen: el enfoque real</h3>
-      <span class="sci-tag">McGill 2010</span><span class="sci-tag">Escamilla 2006–2016</span>
-      <p>Para abdomen visible existen dos factores independientes: reducción de la grasa subcutánea (dieta + déficit calórico moderado, ya controlado con tu proteína) y desarrollo real del músculo recto abdominal.</p>
-      <p><strong>Ab wheel rollout</strong> → mayor activación del recto documentada. <strong>Crunch en polea</strong> → sobrecarga progresiva real. <strong>Elevación de piernas</strong> → activación del inferior y oblicuos. Los 3 días, 3 ejercicios cada día.</p>
-    </div>
-
-    <div class="sci-card">
-      <h3>🦵 Pierna sin rack ocupado</h3>
-      <span class="sci-tag">Pedrosa et al. 2022</span><span class="sci-tag">Contreras et al. 2015</span>
-      <p>La prensa de piernas con rango completo produce hipertrofia prácticamente igual al squat libre (diferencia no significativa estadísticamente). La máquina hack squat y el Smith con pies adelantados son equivalentes para el cuádriceps.</p>
-      <p>El <strong>hip thrust</strong> produce mayor activación del glúteo mayor que cualquier otro ejercicio, incluyendo la sentadilla. Su ausencia en un programa de pierna es un error científicamente documentado.</p>
-    </div>
-
-    <div class="sci-card">
-      <h3>🥩 Tu proteína ya es óptima</h3>
-      <span class="sci-tag">Morton et al. 2018</span><span class="sci-tag">Stokes et al. 2018</span>
-      <p>Con ~160–180g proteína/día (~2.2–2.5g/kg) estás en el rango óptimo superior. La distribución en 4–5 tomas que ya haces (batidos mañana/tarde/noche + comidas + yogures) maximiza la síntesis proteica muscular cada 3–4 horas. No hace falta cambiar nada.</p>
-    </div>
-
-    <div class="sci-card">
-      <h3>⏱ Los 90 segundos de descanso</h3>
-      <span class="sci-tag">Schoenfeld et al. 2016</span><span class="sci-tag">Kraemer & Ratamess 2005</span>
-      <p>90 segundos es el punto de equilibrio entre recuperación suficiente para mantener cargas altas y maximización de la respuesta hormonal anabólica (GH, testosterona). Descansos más cortos bajan el rendimiento; más largos no añaden beneficio adicional para hipertrofia.</p>
-    </div>
+    <div class="tips-list">${tipsHTML}</div>
   `;
+}
+
+function setAcademiaCat(cat) { academiaFilter.cat = cat; renderAcademia(); }
+function setAcademiaSearch(v) {
+  academiaFilter.search = v;
+  // Re-render only tip list (keep input focus)
+  const q = v.toLowerCase().trim();
+  const filtered = TIPS.filter(t => {
+    if (academiaFilter.cat !== 'all' && t.cat !== academiaFilter.cat) return false;
+    if (!q) return true;
+    return (t.t + ' ' + t.b + ' ' + t.ev).toLowerCase().includes(q);
+  });
+  const list = document.querySelector('.tips-list');
+  if (!list) return;
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="empty-st"><div class="ico">🔎</div><h3>Sin resultados</h3><p>Prueba otro filtro o término</p></div>`;
+    return;
+  }
+  list.innerHTML = filtered.map(tip => {
+    const cat = TIPS_CATS[tip.cat];
+    const idx = TIPS.indexOf(tip) + 1;
+    return `<div class="tip-card">
+      <div class="tip-head">
+        <div class="tip-num" style="background:${cat.color}">${idx}</div>
+        <div>
+          <div class="tip-cat" style="color:${cat.color}">${cat.emoji} ${cat.name}</div>
+          <div class="tip-title">${tip.t}</div>
+        </div>
+      </div>
+      <div class="tip-body">${tip.b}</div>
+      <div class="tip-ev">📚 ${tip.ev}</div>
+    </div>`;
+  }).join('');
 }
 
 // ============================================================
