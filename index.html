@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="VictorFit">
-<title>VictorFit</title>
+<meta name="apple-mobile-web-app-title" content="Gym Plan">
+<title>Gym Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
 <link rel="manifest" href="manifest.json">
@@ -386,7 +386,7 @@ const EXL=[
 ];
 const EX={};EXL.forEach(([id,n,g,m,t,cue,img])=>{EX[id]={id,n,g,m,t,cue:cue||(OLD[id]&&OLD[id].cue)||'',img:img||id}});
 
-// Rutina original de VictorFit (se conserva para quien ya la usaba)
+// Rutina original de Gym Plan (se conserva para quien ya la usaba)
 const LEGACY_KEYS=['martes','miercoles','viernes'];
 const LEGACY_PLAN={name:'Mi rutina de 3 días',source:'legacy',days:[
  {title:'Pecho completo + Core',ex:['press_inclinado','press_plano','cruce_arriba','cruce_abajo','elev_lateral_polea','ext_triceps_overhead','crunch_polea','elev_piernas']},
@@ -533,7 +533,7 @@ function renderHome(){
     <div class="streak">${ic('flame')}<div><span>Racha</span><b>${st} ${st===1?'semana':'semanas'}</b></div></div></div>
   <div class="card"><div class="between"><div><h3 style="margin-bottom:6px">Progreso semanal</h3><div style="font-size:30px;font-weight:800;line-height:1">${done} <span class="muted" style="font-weight:500">/ ${goal}</span></div><div class="small muted">Entrenos completados</div><div class="wk-dots">${dots}</div></div>${ring(pct,104,11,`<span style="font-size:24px">${pct}%</span>`)}</div></div>
   <div class="sec">${day&&!tw?.completed?'Entreno de hoy':'Hoy'}</div>${hero}
-  ${canInstall()&&!ls.get('vf_inst_hide',false)?`<div class="banner" style="align-items:center">${ic('dl')}<div style="flex:1"><b>Instala VictorFit</b><br>Tenla en tu móvil como una app más.</div><button class="btn sm" onclick="installApp()">Instalar</button><button class="ck" style="width:32px;height:32px;border:0;color:var(--text2)" aria-label="Ocultar" onclick="ls.set('vf_inst_hide',true);renderHome()">${ic('x')}</button></div>`:''}
+  ${canInstall()&&!ls.get('vf_inst_hide',false)?`<div class="banner" style="align-items:center">${ic('dl')}<div style="flex:1"><b>Instala Gym Plan</b><br>Tenla en tu móvil como una app más.</div><button class="btn sm" onclick="installApp()">Instalar</button><button class="ck" style="width:32px;height:32px;border:0;color:var(--text2)" aria-label="Ocultar" onclick="ls.set('vf_inst_hide',true);renderHome()">${ic('x')}</button></div>`:''}
   <div class="sec">Accesos rápidos</div>
   <div class="qa"><button onclick="showView('library')">${ic('dumbbell')}Ejercicios</button><button onclick="tDay=null;showView('training')">${ic('list')}Mi plan</button><button onclick="showView('nutrition')">${ic('food')}Dieta</button><button onclick="showView('science')">${ic('book')}Ciencia</button></div>
   <div class="sec">Tu semana <a onclick="showView('progress')">Ver todo</a></div>
@@ -562,7 +562,7 @@ function renderTraining(){
   if(active&&!openEx.size){const f=day.exercises.find(e=>!(wo?.exercises[e.id]||[]).every(s=>s.done)&&true);if(f&&wo?.startTime)openEx.add(f.id)}
   const state=doneToday?(view?'Sesión completada hoy':'Hoy ya has entrenado. Puedes consultar este día.'):wo?.startTime?'En curso · marca cada serie al terminarla':'Apunta kilos y repeticiones y marca cada serie';
   c.innerHTML=`<div class="tabs">${tabs}</div>
-  <div class="card"><div class="between"><div><div class="eyebrow">${PLAN.source==='ia'?'Plan personalizado con IA':PLAN.source==='legacy'?'Tu rutina':'Plan VictorFit'}</div><div style="font-size:22px;font-weight:800;margin-top:3px">${esc(day.title)}</div></div><span class="pill">${ic('clock')} ~${estMin(day)} min</span></div>
+  <div class="card"><div class="between"><div><div class="eyebrow">${PLAN.source==='ia'?'Plan personalizado con IA':PLAN.source==='legacy'?'Tu rutina':'Plan Gym Plan'}</div><div style="font-size:22px;font-weight:800;margin-top:3px">${esc(day.title)}</div></div><span class="pill">${ic('clock')} ~${estMin(day)} min</span></div>
     <div class="pbar" style="margin:13px 0 7px"><i id="tpf" style="width:${pct}%"></i></div><div class="between small muted"><span id="tpt">${dn} / ${total} series</span><span>${esc(state)}</span></div></div>
   <div id="exList">${day.exercises.map((e,i)=>exCard(e,i,wo,view,active)).join('')}</div>
   ${active?`<button class="btn block" style="margin:6px 0 12px" onclick="finishWorkout()">${ic('trophy')} Finalizar entreno</button>`:''}
@@ -816,12 +816,12 @@ function renderProfile(keep){
   <div class="card"><div class="between"><div><h3 style="margin-bottom:2px">Aspecto</h3><div class="small muted">Tema ${th==='light'?'claro':'oscuro'}</div></div><button class="btn ghost sm" onclick="setTheme('${th==='light'?'dark':'light'}');renderProfile(true)">${ic('moon')} Cambiar a ${th==='light'?'oscuro':'claro'}</button></div></div>
   ${canInstall()?`<div class="card"><div class="between"><div><h3 style="margin-bottom:2px">Instalar la app</h3><div class="small muted">Tenla en tu pantalla de inicio</div></div><button class="btn sm" onclick="installApp()">${ic('dl')} Instalar</button></div></div>`:''}
   <div class="card"><h3>Copia de seguridad</h3><p class="small muted" style="margin-bottom:12px">Tus datos se guardan solo en este dispositivo. Exporta una copia de vez en cuando.</p><div class="row"><button class="btn ghost sm" style="flex:1" onclick="exportData()">Exportar copia</button><button class="btn ghost sm" style="flex:1" onclick="$('impFile').click()">Importar copia</button></div><input id="impFile" type="file" accept="application/json" style="display:none" onchange="importData(event)"></div>
-  <p class="note" style="text-align:center;margin-top:6px">VictorFit 2026 · Herramienta de seguimiento y educación. No sustituye una valoración profesional.<br>Fotos de ejercicios: Free Exercise DB (dominio público).</p>`}
+  <p class="note" style="text-align:center;margin-top:6px">Gym Plan 2026 · Herramienta de seguimiento y educación. No sustituye una valoración profesional.<br>Fotos de ejercicios: Free Exercise DB (dominio público).</p>`}
 function saveProfile(){const e=validProfile(pf);if(e){toast(e);return}const old=P(),nw=cleanProfile(pf);ls.set('vf_profile',nw);pf=null;refreshAutoDiet();
   const ch=new Set(old.trainingDays).size!==nw.trainingDays.length||old.goal!==nw.goal||old.level!==nw.level||JSON.stringify(old.focus||[])!==JSON.stringify(nw.focus||[]);
   showView('profile');toast('Perfil guardado');if(ch||!PLAN)askRegen()}
 function setTheme(t){document.documentElement.dataset.theme=t;ls.set('vf_theme',t);document.querySelector('meta[name=theme-color]').content=t==='light'?'#f2f5f0':'#0a0e13'}
-function exportData(){const keys=['mu_w','vf_profile','vf_plan','vf_food','vf_diet','vf_eaten','vf_checkins','vf_measures'],d={version:3,exportedAt:new Date().toISOString()};keys.forEach(k=>d[k]=ls.get(k,null));const u=URL.createObjectURL(new Blob([JSON.stringify(d)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='victorfit-copia-'+todayKey()+'.json';a.click();URL.revokeObjectURL(u)}
+function exportData(){const keys=['mu_w','vf_profile','vf_plan','vf_food','vf_diet','vf_eaten','vf_checkins','vf_measures'],d={version:3,exportedAt:new Date().toISOString()};keys.forEach(k=>d[k]=ls.get(k,null));const u=URL.createObjectURL(new Blob([JSON.stringify(d)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='gymplan-copia-'+todayKey()+'.json';a.click();URL.revokeObjectURL(u)}
 function importData(ev){const f=ev.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result),w=d.mu_w||d.workouts;if(!w||typeof w!=='object')throw 0;window._imp=d;openSheet(`<div class="grab"></div><h2>¿Sustituir tus datos?</h2><p class="small muted" style="margin-bottom:16px">Se reemplazarán los datos de este dispositivo por los de la copia.</p><button class="btn block" onclick="applyImport()">Sí, importar</button><button class="btn ghost block" style="margin-top:9px" onclick="closeSheet()">Cancelar</button>`)}catch{toast('Archivo no válido')}};r.readAsText(f);ev.target.value=''}
 function applyImport(){const d=window._imp;S.setWorkouts(d.mu_w||d.workouts);[['vf_profile',d.vf_profile||d.profile],['vf_plan',d.vf_plan],['vf_food',d.vf_food],['vf_diet',d.vf_diet],['vf_eaten',d.vf_eaten],['vf_checkins',d.vf_checkins||d.checkins],['vf_measures',d.vf_measures||d.measures]].forEach(([k,v])=>{if(v!=null)ls.set(k,v)});PLAN=ls.get('vf_plan',null);migrate();closeSheet();boot()}
 
@@ -831,7 +831,7 @@ function wzSet(k,v,soft){setField(wz,k,v);if(!soft)renderWiz()}
 function renderWiz(){
   const f=formFields(wz,'wzSet'),legacy=!!PLAN,n=String(wz.name||'').trim().split(/\s+/)[0];
   const st=[
-   `${legacy?`<div class="banner">${ic('spark')}<div><b>Novedad:</b> VictorFit se renueva con fotos en los ejercicios, plan y dieta a tu medida y nuevas gráficas.</div></div>`:''}<div class="eyebrow">Bienvenida</div><h2>Vamos a preparar <span class="acc">tu</span> VictorFit.</h2><p class="muted" style="margin-bottom:8px">Unas preguntas rápidas para adaptar entrenamiento y dieta a ti.</p>${f.who}`,
+   `${legacy?`<div class="banner">${ic('spark')}<div><b>Novedad:</b> Gym Plan se renueva con fotos en los ejercicios, plan y dieta a tu medida y nuevas gráficas.</div></div>`:''}<div class="eyebrow">Bienvenida</div><h2>Vamos a preparar <span class="acc">tu</span> Gym Plan.</h2><p class="muted" style="margin-bottom:8px">Unas preguntas rápidas para adaptar entrenamiento y dieta a ti.</p>${f.who}`,
    `<div class="eyebrow">Sobre ti</div><h2>${n?esc(n)+', cuéntame':'Cuéntame'} un poco más.</h2><p class="muted">Sirve para calcular tus calorías y adaptar las cargas.</p>${f.body}${f.level}`,
    `<div class="eyebrow">Objetivo</div><h2>¿Qué quieres <span class="acc">conseguir</span>?</h2>${f.goal}`,
    `<div class="eyebrow">Tu semana</div><h2>¿Qué días vas a <span class="acc">entrenar</span>?</h2><p class="muted">Marca los días de la semana que mejor te vengan.</p>${f.days}`,
@@ -853,27 +853,27 @@ const canInstall=()=>!isStandalone();
 function updInstall(){const b=$('instBtn');if(b)b.style.display=canInstall()?'flex':'none';if(currentView==='profile'&&!pf)renderProfile()}
 async function installApp(){
   if(isStandalone()){toast('La app ya está instalada');return}
-  if(deferredInstall){deferredInstall.prompt();const r=await deferredInstall.userChoice.catch(()=>null);deferredInstall=null;updInstall();if(r?.outcome==='accepted')toast('Instalando VictorFit…');return}
+  if(deferredInstall){deferredInstall.prompt();const r=await deferredInstall.userChoice.catch(()=>null);deferredInstall=null;updInstall();if(r?.outcome==='accepted')toast('Instalando Gym Plan…');return}
   const ios=isIOS();
-  openSheet(`<div class="grab"></div><div class="eyebrow">${ic('dl')} Instalar app</div><h2>Ten VictorFit en tu pantalla de inicio</h2><p class="small muted" style="margin-bottom:16px">Se abrirá a pantalla completa, como una app más, y funcionará sin conexión.</p>
+  openSheet(`<div class="grab"></div><div class="eyebrow">${ic('dl')} Instalar app</div><h2>Ten Gym Plan en tu pantalla de inicio</h2><p class="small muted" style="margin-bottom:16px">Se abrirá a pantalla completa, como una app más, y funcionará sin conexión.</p>
   <div class="steps">${ios?`<div><h4>Pulsa el botón Compartir de Safari</h4><p class="small muted">Es el cuadrado con una flecha hacia arriba, abajo o arriba de la pantalla.</p></div><div><h4>Elige «Añadir a pantalla de inicio»</h4><p class="small muted">Si no aparece, desliza hacia abajo en el menú.</p></div><div><h4>Pulsa «Añadir»</h4><p class="small muted">Tienes que usar Safari; desde otros navegadores en iPhone no se puede.</p></div>`
-  :`<div><h4>Abre el menú del navegador</h4><p class="small muted">Los tres puntos ⋮ arriba a la derecha (Chrome, Edge…).</p></div><div><h4>Pulsa «Instalar aplicación» o «Añadir a pantalla de inicio»</h4><p class="small muted">En el ordenador también puede salir un icono de instalar en la barra de direcciones.</p></div><div><h4>Confirma</h4><p class="small muted">VictorFit aparecerá junto a tus otras apps.</p></div>`}</div>
+  :`<div><h4>Abre el menú del navegador</h4><p class="small muted">Los tres puntos ⋮ arriba a la derecha (Chrome, Edge…).</p></div><div><h4>Pulsa «Instalar aplicación» o «Añadir a pantalla de inicio»</h4><p class="small muted">En el ordenador también puede salir un icono de instalar en la barra de direcciones.</p></div><div><h4>Confirma</h4><p class="small muted">Gym Plan aparecerá junto a tus otras apps.</p></div>`}</div>
   <button class="btn block" onclick="closeSheet()">Entendido</button>`)}
 
 // ===== ARRANQUE =====
-const NEWS_ID='2026-11-instalar';
+const NEWS_ID='2026-11-gymplan';
 function boot(){
   setTheme(ls.get('vf_theme','dark'));migrate();
   const d=ls.get('vf_draft',null);if(d&&!d.completed&&d.date===todayKey()&&PLAN?.days[d.dayIdx]&&PLAN.days[d.dayIdx].title===d.title)currentWorkout=d;
   if(!ls.get('vf_profile',{}).setup||!PLAN){wz=P();if(!localStorage.getItem('vf_profile'))wz.trainingDays=[1,3,5];wzStep=0;renderWiz();return}
   showView('home');
-  if(ls.get('vf_news','')!==NEWS_ID){ls.set('vf_news',NEWS_ID);openSheet(`<div class="grab"></div><div class="eyebrow">Novedad</div><h2>Ya puedes instalar VictorFit</h2><p class="muted small" style="margin-bottom:16px">Pulsa el botón de descarga de arriba para tenerla en tu pantalla de inicio como una app más.</p><button class="btn block" onclick="closeSheet();installApp()">Instalar ahora</button><button class="btn ghost block" style="margin-top:9px" onclick="closeSheet()">Más tarde</button>`)}
+  if(ls.get('vf_news','')!==NEWS_ID){ls.set('vf_news',NEWS_ID);openSheet(`<div class="grab"></div><div class="eyebrow">Novedad</div><h2>Ahora se llama Gym Plan</h2><p class="muted small" style="margin-bottom:16px">Tiene nombre e icono nuevos. Tus datos siguen igual.</p><button class="btn block" onclick="closeSheet();installApp()">Instalar ahora</button><button class="btn ghost block" style="margin-top:9px" onclick="closeSheet()">Más tarde</button>`)}
 }
 function initShell(){
   $('logoImg').src=ICON;
   if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
   window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;updInstall()});
-  window.addEventListener('appinstalled',()=>{deferredInstall=null;updInstall();toast('¡VictorFit instalada!')});
+  window.addEventListener('appinstalled',()=>{deferredInstall=null;updInstall();toast('¡Gym Plan instalada!')});
   updInstall();
   $('sheetOv').addEventListener('click',e=>{if(e.target===$('sheetOv'))closeSheet()});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
