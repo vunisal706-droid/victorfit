@@ -331,8 +331,8 @@ const TIPS = [
 
 
 // ===== CATÁLOGO DE EJERCICIOS =====  [id, nombre, grupo, músculo, tipo (c=multiarticular, i=aislamiento), ejecución, imagen?]
-const GROUPS={pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',brazos:'Brazos',piernas:'Piernas',gluteos:'Glúteos',core:'Core'};
-const GCOL={pecho:'#c8f031',espalda:'#8fae2a',piernas:'#7f8ea3',hombros:'#f4c542',brazos:'#5cc8ff',gluteos:'#ff8a5c',core:'#b58cff'};
+const GROUPS={pecho:'Pecho',espalda:'Espalda',hombros:'Hombros',biceps:'Bíceps',triceps:'Tríceps',piernas:'Piernas',gluteos:'Glúteos',core:'Core'};
+const GCOL={pecho:'#c8f031',espalda:'#8fae2a',piernas:'#7f8ea3',hombros:'#f4c542',biceps:'#5cc8ff',triceps:'#ff5ca8',gluteos:'#ff8a5c',core:'#b58cff'};
 const EXL=[
 ['press_banca','Press de banca con barra','pecho','Pecho, tríceps y hombro anterior','c','Escápulas juntas y pies firmes. Baja la barra controlada hasta el pecho, a la altura del esternón, y empuja sin despegar los glúteos del banco.'],
 ['press_plano','Press plano con mancuernas','pecho','Pecho medio','c',''],
@@ -401,6 +401,8 @@ const EXL=[
 ];
 const EX={};EXL.forEach(([id,n,g,m,t,cue,img])=>{EX[id]={id,n,g,m,t,cue:cue||(OLD[id]&&OLD[id].cue)||'',img:img||id}});
 try{Object.values(JSON.parse(localStorage.getItem('vf_custom'))||{}).forEach(x=>{if(x&&x.id)EX[x.id]=x})}catch{}
+const armG=x=>/tr[ií]ceps|fondos|franc/i.test((x.n||'')+' '+(x.m||''))?'triceps':'biceps';
+Object.values(EX).forEach(x=>{if(x.g==='brazos')x.g=armG(x)});
 
 // Rutina original de Gym Plan (se conserva para quien ya la usaba)
 const LEGACY_KEYS=['martes','miercoles','viernes'];
@@ -432,7 +434,7 @@ const TPL={
  5:[['Torso',['pressH','rowH','shPress','pullV','lat','tri','bi']],['Pierna A',['quad','hinge','quad2','ham','calf','core']],['Empuje',['pressI','shPress','fly','lat','tri','tri']],['Tirón',['pullV','rowH','rear','bi','bi','core']],['Pierna B',['glute','quad2','ham','quadIso','calf','core']]],
  6:[['Empuje A',['pressH','shPress','fly','lat','tri']],['Tirón A',['pullV','rowH','rear','bi','core']],['Pierna A',['quad','hinge','quad2','ham','calf']],['Empuje B',['pressI','shPress','fly','lat','tri']],['Tirón B',['rowH','pullV','rear','bi','core']],['Pierna B',['glute','quad2','ham','quadIso','calf','core']]]
 };
-const FOCUS_SLOT={pecho:['fly'],espalda:['rowH'],hombros:['lat'],brazos:['bi','tri'],piernas:['quadIso'],gluteos:['glute'],core:['core']};
+const FOCUS_SLOT={pecho:['fly'],espalda:['rowH'],hombros:['lat'],biceps:['bi'],triceps:['tri'],piernas:['quadIso'],gluteos:['glute'],core:['core']};
 
 // ===== ALIMENTOS (por 100 g) =====
 const FOODS={
@@ -484,6 +486,9 @@ let PLAN=ls.get('vf_plan',null), currentView='home', currentWorkout=null, tDay=n
 function legacyPlan(){return {name:LEGACY_PLAN.name,source:'legacy',created:Date.now(),days:LEGACY_PLAN.days.map(d=>({title:d.title,exercises:d.ex.map(id=>({id,sets:OLD[id]?.sets||3,reps:OLD[id]?.reps||'10–12',rest:OLD[id]?.key?150:90}))}))}}
 function savePlan(p){PLAN=p;ls.set('vf_plan',p)}
 function migrate(){
+  {const pr=ls.get('vf_profile',null);if(pr&&(pr.focus||[]).includes('brazos')){pr.focus=[...new Set(pr.focus.flatMap(f=>f==='brazos'?['biceps','triceps']:[f]))];ls.set('vf_profile',pr)}
+   if(PLAN&&PLAN.days.some(d=>(d.groups||[]).includes('brazos'))){PLAN.days.forEach(d=>{if((d.groups||[]).includes('brazos')){const g=[...new Set(d.exercises.map(e=>EX[e.id]?.g).filter(x=>x==='biceps'||x==='triceps'))];d.groups=[...new Set(d.groups.flatMap(x=>x==='brazos'?(g.length?g:['biceps','triceps']):[x]))]}});savePlan(PLAN)}
+   const c=ls.get('vf_custom',{});if(Object.values(c).some(x=>x.g==='brazos')){Object.values(c).forEach(x=>{if(x.g==='brazos')x.g=armG(x)});ls.set('vf_custom',c)}}
   const ws=S.workouts;let ch=false;
   Object.values(ws).forEach(w=>{if(w&&!w.title){const i=LEGACY_KEYS.indexOf(w.day);if(i>=0){w.title=LEGACY_PLAN.days[i].title;w.dayIdx=i;ch=true}}});
   if(ch)S.setWorkouts(ws);
@@ -993,7 +998,7 @@ function histText(){const ids=[...new Set(PLAN.days.flatMap(d=>d.exercises.map(e
   ids.forEach(id=>{const ss=all.filter(([,w])=>(w.exercises?.[id]||[]).some(x=>x.done)).slice(-3).map(([date,w])=>{const s=w.exercises[id].filter(x=>x.done&&num(x.reps)>0),r=s[s.length-1]?.rir;return `${date.slice(5).split('-').reverse().join('/')}: ${s.map(x=>`${num(x.weight)||0}×${x.reps}`).join(', ')}${r!=null?` (RIR ${r})`:''}`});if(ss.length)out.push(`- ${EX[id]?.n}: ${ss.join(' | ')}`)});
   return out.join('\n')||'Todavía no hay sesiones registradas.'}
 const catText=()=>Object.values(EX).filter(x=>!x.own).map(x=>`${x.id} = ${x.n}`).join('; ');
-function convertPrompt(extra){return `Convierte la rutina de gimnasio que describe esta persona a formato JSON para su app de entrenamiento. NO cambies nada: mantén exactamente sus días, sus ejercicios, el orden, las series, las repeticiones y los pesos que diga. No añadas ni quites ejercicios y no des consejos.\n\nSu descripción (puede venir dictada por voz, con alguna palabra mal transcrita):\n«${String(extra||'').trim()||'(aquí va la descripción de la rutina)'}»\n\nInstrucciones:\n1. Para cada ejercicio usa el "id" del catálogo que corresponda (el mismo ejercicio o el más parecido). Si no hay ninguno equivalente, pon "id":"nuevo" y añade "nombre" y "grupo".\n2. "grupo" y "grupos" solo pueden ser: ${Object.keys(GROUPS).join(', ')}.\n3. Si no dice las series, pon 3; si no dice repeticiones, pon "10-12"; si no dice el peso, pon null.\n4. "dia_semana" en minúsculas: lunes, martes, miércoles, jueves, viernes, sábado o domingo.\n5. Catálogo (id = nombre): ${catText()}\n6. Responde ÚNICAMENTE con un bloque de código JSON válido, sin texto antes ni después, con este formato:\n{"tipo":"rutina","dias":[{"dia_semana":"martes","titulo":"Pecho y tríceps","grupos":["pecho","brazos"],"ejercicios":[{"id":"press_banca","series":4,"reps":"8","peso_kg":60},{"id":"nuevo","nombre":"Press en máquina convergente","grupo":"pecho","series":3,"reps":"10","peso_kg":null}]}]}`}
+function convertPrompt(extra){return `Convierte la rutina de gimnasio que describe esta persona a formato JSON para su app de entrenamiento. NO cambies nada: mantén exactamente sus días, sus ejercicios, el orden, las series, las repeticiones y los pesos que diga. No añadas ni quites ejercicios y no des consejos.\n\nSu descripción (puede venir dictada por voz, con alguna palabra mal transcrita):\n«${String(extra||'').trim()||'(aquí va la descripción de la rutina)'}»\n\nInstrucciones:\n1. Para cada ejercicio usa el "id" del catálogo que corresponda (el mismo ejercicio o el más parecido). Si no hay ninguno equivalente, pon "id":"nuevo" y añade "nombre" y "grupo".\n2. "grupo" y "grupos" solo pueden ser: ${Object.keys(GROUPS).join(', ')}.\n3. Si no dice las series, pon 3; si no dice repeticiones, pon "10-12"; si no dice el peso, pon null.\n4. "dia_semana" en minúsculas: lunes, martes, miércoles, jueves, viernes, sábado o domingo.\n5. Catálogo (id = nombre): ${catText()}\n6. Responde ÚNICAMENTE con un bloque de código JSON válido, sin texto antes ni después, con este formato:\n{"tipo":"rutina","dias":[{"dia_semana":"martes","titulo":"Pecho y tríceps","grupos":["pecho","triceps"],"ejercicios":[{"id":"press_banca","series":4,"reps":"8","peso_kg":60},{"id":"nuevo","nombre":"Press en máquina convergente","grupo":"pecho","series":3,"reps":"10","peso_kg":null}]}]}`}
 function adjustPrompt(ex){return `Actúa como entrenador personal titulado en Ciencias del Deporte. Esta persona ya tiene su rutina y NO quiere cambiarla (cambiar mucho la rutina hace que se abandone). Tu trabajo es solo ajustarla con criterios científicos.\n${profileText()}${ex||''}\nSu rutina actual, en su orden:\n${routineText()}\n\nSu historial reciente (kg × repeticiones por serie):\n${histText()}\n\nReglas:\n1. Mantén EXACTAMENTE los mismos días y los mismos ejercicios (mismos "id"). No añadas, no quites y no sustituyas ejercicios.\n2. Solo puedes cambiar: el peso para la próxima sesión (peso_kg), las series, las repeticiones, el descanso y, si mejora el rendimiento, el orden dentro de cada día (por ejemplo, multiarticulares antes que aislamiento). Cambia lo mínimo necesario.\n3. Pesos con progresión doble según la evidencia (ACSM): sube un 2-5 % solo si en la última sesión completó el tope del rango de repeticiones en todas las series sin llegar al fallo; si no llegó al mínimo del rango, mantén o baja el peso. Si no hay historial de un ejercicio, deja su peso actual o null.\n4. En "nota" explica en una frase corta qué has cambiado y por qué (o "sin cambios").\n5. Responde ÚNICAMENTE con un bloque de código JSON válido, sin texto antes ni después, con los días en el mismo orden:\n{"tipo":"ajuste","dias":[{"titulo":"Pecho y tríceps","ejercicios":[{"id":"press_banca","series":4,"reps":"8-10","peso_kg":62.5,"descanso_seg":120,"nota":"Sube 2,5 kg: completaste 10 repeticiones en todas las series"}]}],"consejos":["consejo breve"]}`}
 function resolveEx(e){let id=String(e.id||'').trim();if(EX[id])return id;if(id==='nuevo'||!id)return e.nombre||e.name?addCustomEx(e.nombre||e.name,e.grupo):null;const k=normTxt(e.id||e.nombre||e.name);return Object.keys(EX).find(x=>normTxt(x)===k||normTxt(EX[x].n)===k)||(e.nombre?addCustomEx(e.nombre,e.grupo):null)}
 function importMine(j,dias){
