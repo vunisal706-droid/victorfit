@@ -402,7 +402,123 @@ const EXL=[
 ['plancha','Plancha','core','Core completo','i','Antebrazos en el suelo y cuerpo en línea recta de la cabeza a los talones. Aprieta abdomen y glúteos y no dejes caer la cadera.'],
 ['crunch','Crunch abdominal','core','Recto abdominal','i','Tumbado con las rodillas flexionadas. Despega los hombros del suelo contrayendo el abdomen, sin tirar del cuello.'],
 ['elev_piernas_suelo','Elevación de piernas tumbado','core','Abdomen inferior','i','Tumbado en banco o suelo. Sube las piernas hasta la vertical y bájalas despacio sin tocar el suelo ni arquear la zona lumbar.'],
-['russian_twist','Giro ruso','core','Oblicuos','i','Sentado con el tronco inclinado atrás. Gira de lado a lado llevando el peso junto a la cadera, con el abdomen firme.']
+['russian_twist','Giro ruso','core','Oblicuos','i','Sentado con el tronco inclinado atrás. Gira de lado a lado llevando el peso junto a la cadera, con el abdomen firme.'],
+['press_inclinado_barra','Press inclinado con barra','pecho','Pecho superior','c','Banco a 30–45°. Baja la barra a la parte alta del pecho con los codos algo cerrados y empuja sin despegar la espalda.'],
+['press_declinado_barra','Press declinado con barra','pecho','Pecho inferior','c','Piernas bien sujetas. Baja la barra a la parte baja del pecho y empuja en línea recta, controlando la bajada.'],
+['press_smith_plano','Press de banca en multipower','pecho','Pecho, tríceps y hombro anterior','c','Coloca el banco para que la barra baje a la altura del esternón. Escápulas juntas, baja controlado y empuja.'],
+['press_smith_inclinado','Press inclinado en multipower','pecho','Pecho superior','c','Banco a 30–45°. La barra baja a la parte alta del pecho; empuja sin bloquear del todo los codos.'],
+['press_inclinado_maquina','Press inclinado en máquina','pecho','Pecho superior','c','Ajusta el asiento para que los agarres queden a la altura de la parte alta del pecho. Empuja y vuelve despacio.'],
+['press_declinado_maquina','Press declinado en máquina','pecho','Pecho inferior','c','Espalda pegada al respaldo. Empuja hacia delante y abajo, y vuelve lento hasta notar el estiramiento.'],
+['press_neutro_mancuernas','Press con mancuernas agarre neutro','pecho','Pecho y tríceps','c','Palmas enfrentadas y codos cerca del cuerpo. Baja hasta la altura del pecho y empuja juntando ligeramente las mancuernas.'],
+['aperturas_mancuernas','Aperturas con mancuernas','pecho','Pecho','i','Codos ligeramente flexionados y fijos. Abre los brazos en arco hasta notar el estiramiento y cierra apretando el pecho.'],
+['aperturas_inclinadas','Aperturas inclinadas con mancuernas','pecho','Pecho superior','i','Banco a 30°. Abre en arco con los codos algo flexionados y sube juntando las mancuernas sobre el pecho.'],
+['aperturas_polea_banco','Aperturas en polea tumbado','pecho','Pecho','i','Banco entre dos poleas bajas. Abre en arco controlado y cierra sobre el pecho manteniendo tensión todo el recorrido.'],
+['aperturas_polea_inclinado','Aperturas en polea en banco inclinado','pecho','Pecho superior','i','Banco inclinado entre poleas bajas. Junta las manos sobre la parte alta del pecho y baja despacio.'],
+['press_polea_pie','Press de pecho en polea de pie','pecho','Pecho','c','De pie entre las poleas, un pie adelantado. Empuja al frente juntando las manos y vuelve controlando.'],
+['pullover_mancuerna','Pullover con mancuerna','pecho','Pecho y dorsal','i','Tumbado con la mancuerna sobre el pecho. Llévala atrás por encima de la cabeza con los brazos casi rectos y vuelve.'],
+['flexiones_declinadas','Flexiones con pies elevados','pecho','Pecho superior y tríceps','c','Pies sobre un banco y cuerpo recto. Baja el pecho hacia el suelo y empuja sin hundir la cadera.'],
+['flexiones_inclinadas','Flexiones con manos elevadas','pecho','Pecho y tríceps','c','Manos en un banco o barra. Versión más fácil de la flexión: cuerpo recto, baja el pecho al apoyo y empuja.'],
+['jalon_supino','Jalón al pecho agarre supino','espalda','Dorsal y bíceps','c','Palmas hacia ti, a la anchura de los hombros. Tira hacia la parte alta del pecho llevando los codos abajo y atrás.'],
+['jalon_cerrado','Jalón al pecho agarre cerrado','espalda','Dorsal','c','Agarre estrecho. Tira hacia el pecho sacando pecho y juntando escápulas; sube estirando del todo.'],
+['jalon_unilateral','Jalón a una mano','espalda','Dorsal','c','Sentado o de rodillas, un agarre. Tira llevando el codo hacia la cadera y sube estirando bien el dorsal.'],
+['jalon_brazos_rectos','Jalón con brazos rectos en polea','espalda','Dorsal','i','De pie frente a la polea alta. Con los brazos casi rectos, baja la barra en arco hasta los muslos usando la espalda.'],
+['dominadas_supinas','Dominadas supinas (chin-up)','espalda','Dorsal y bíceps','c','Palmas hacia ti. Tira hasta pasar la barbilla de la barra y baja hasta estirar los brazos.'],
+['dominadas_lastre','Dominadas con lastre','espalda','Dorsal','c','Con cinturón o mancuerna entre los pies. Recorrido completo, sin balanceo.'],
+['remo_mancuernas_dos','Remo con dos mancuernas inclinado','espalda','Espalda media y dorsal','c','Tronco inclinado y espalda recta. Lleva las mancuernas hacia la cadera juntando escápulas y baja controlado.'],
+['remo_supino_barra','Remo con barra agarre supino','espalda','Dorsal y bíceps','c','Palmas hacia arriba, tronco inclinado. Lleva la barra al ombligo con los codos pegados.'],
+['remo_pecho_apoyado','Remo con mancuernas pecho apoyado','espalda','Espalda media','c','Pecho apoyado en un banco inclinado. Tira de las mancuernas sin despegar el pecho y baja estirando.'],
+['remo_unilateral_polea','Remo sentado en polea a una mano','espalda','Dorsal y espalda media','c','Tira del agarre hacia la cadera sin girar el tronco y estira el brazo al volver.'],
+['remo_maquina_alta','Remo alto en máquina','espalda','Dorsal y espalda alta','c','Tira de arriba hacia abajo y atrás, llevando los codos a los costados. Vuelve despacio.'],
+['remo_smith','Remo en multipower','espalda','Espalda media','c','Tronco inclinado y espalda recta. Lleva la barra al abdomen juntando escápulas.'],
+['remo_invertido','Remo invertido','espalda','Espalda media','c','Debajo de una barra baja, cuerpo recto. Tira del pecho hacia la barra y baja controlado.'],
+['remo_landmine','Remo en barra T a una mano (landmine)','espalda','Dorsal y espalda media','c','Una mano en el extremo de la barra, tronco inclinado. Tira hacia la cadera sin girar el cuerpo.'],
+['encogimientos_barra','Encogimientos con barra','espalda','Trapecio','i','De pie con la barra delante. Sube los hombros hacia las orejas, aguanta un segundo y baja. Sin girarlos.'],
+['encogimientos_mancuernas','Encogimientos con mancuernas','espalda','Trapecio','i','Mancuernas a los lados. Sube los hombros en vertical, aprieta arriba y baja despacio.'],
+['rack_pull','Peso muerto desde soportes (rack pull)','espalda','Lumbar, trapecio y glúteos','c','Barra apoyada a la altura de las rodillas. Espalda recta, extiende cadera y rodillas hasta quedar erguido.'],
+['press_arnold','Press Arnold','hombros','Deltoides anterior y medio','c','Empieza con las palmas hacia ti. Gira las muñecas mientras empujas hasta arriba y deshaz el giro al bajar.'],
+['press_hombro_polea','Press de hombros en polea','hombros','Deltoides','c','Sentado o de pie entre poleas bajas. Empuja en vertical sin arquear la espalda.'],
+['press_smith_hombro','Press de hombros en multipower','hombros','Deltoides anterior y tríceps','c','Banco vertical bajo la barra. Baja hasta la barbilla y empuja sin bloquear los codos.'],
+['press_hombro_unilateral','Press de hombro a una mano','hombros','Deltoides','c','Una mancuerna. Empuja en vertical con el abdomen firme, sin inclinarte hacia el lado contrario.'],
+['elev_frontal','Elevaciones frontales con mancuernas','hombros','Deltoides anterior','i','Sube las mancuernas al frente hasta la altura de los hombros, sin impulso, y baja controlado.'],
+['elev_frontal_polea','Elevación frontal en polea','hombros','Deltoides anterior','i','De espaldas a la polea baja. Sube el agarre al frente hasta los hombros y baja despacio.'],
+['elev_frontal_disco','Elevación frontal con disco','hombros','Deltoides anterior','i','Disco agarrado con las dos manos. Súbelo al frente hasta la altura de los ojos y baja controlado.'],
+['elev_lateral_sentado','Elevaciones laterales sentado','hombros','Deltoides medio','i','Sentado, sin balanceo. Sube los brazos hacia los lados hasta la altura de los hombros y baja lento.'],
+['pajaros_polea','Pájaros en polea','hombros','Deltoides posterior','i','Poleas cruzadas a la altura de los hombros. Abre los brazos hacia atrás con los codos casi rectos.'],
+['pajaros_maquina','Pájaros en máquina (contractora inversa)','hombros','Deltoides posterior','i','Pecho contra el respaldo. Abre los brazos hacia atrás sin juntar demasiado las escápulas y vuelve despacio.'],
+['pajaros_banco','Pájaros tumbado en banco inclinado','hombros','Deltoides posterior','i','Boca abajo en banco inclinado. Abre los brazos hacia los lados con los codos algo flexionados.'],
+['remo_menton','Remo al mentón con barra','hombros','Deltoides medio y trapecio','c','Agarre algo más ancho que los hombros. Sube la barra pegada al cuerpo hasta el pecho, codos por encima de las manos.'],
+['remo_menton_polea','Remo al mentón en polea','hombros','Deltoides medio y trapecio','c','Polea baja con barra. Sube hasta la altura del pecho llevando los codos hacia arriba y a los lados.'],
+['rotacion_externa_polea','Rotación externa en polea','hombros','Manguito rotador','i','Codo pegado al costado a 90°. Gira el antebrazo hacia fuera sin separar el codo. Peso ligero.'],
+['curl_barra_z','Curl con barra Z','biceps','Bíceps','i','Codos pegados al cuerpo. Sube la barra sin balancear y baja hasta casi estirar los brazos.'],
+['curl_alterno','Curl alterno con mancuernas','biceps','Bíceps','i','Sube una mancuerna girando la palma hacia arriba y baja despacio antes de subir la otra.'],
+['curl_concentrado','Curl concentrado','biceps','Bíceps','i','Sentado, el codo apoyado en el interior del muslo. Sube la mancuerna hacia el hombro y baja lento.'],
+['curl_martillo_cuerda','Curl martillo en polea con cuerda','biceps','Braquial y antebrazo','i','Polea baja con cuerda, palmas enfrentadas. Sube sin mover los codos y baja controlado.'],
+['curl_martillo_cruzado','Curl martillo cruzado','biceps','Braquial y antebrazo','i','Palma hacia dentro. Sube la mancuerna en diagonal hacia el hombro contrario.'],
+['curl_predicador_maquina','Curl en máquina predicador','biceps','Bíceps','i','Brazos apoyados en el cojín. Sube hasta contraer y baja sin estirar de golpe el codo.'],
+['curl_predicador_polea','Curl predicador en polea','biceps','Bíceps','i','Banco predicador frente a la polea baja. Tensión constante: sube y baja controlado.'],
+['curl_maquina','Curl de bíceps en máquina','biceps','Bíceps','i','Ajusta el asiento para alinear el codo con el eje. Sube y baja sin despegar los brazos.'],
+['curl_spider','Curl araña (spider curl)','biceps','Bíceps','i','Pecho apoyado en un banco inclinado y brazos colgando. Sube sin mover los codos.'],
+['curl_polea_alta','Curl en polea alta','biceps','Bíceps','i','Entre dos poleas altas, brazos en cruz. Lleva las manos hacia las orejas y vuelve despacio.'],
+['curl_arrastre','Curl de arrastre (drag curl)','biceps','Bíceps','i','Sube la barra pegada al cuerpo llevando los codos hacia atrás.'],
+['curl_zottman','Curl Zottman','biceps','Bíceps y antebrazo','i','Sube con las palmas hacia arriba, gira arriba y baja con las palmas hacia abajo.'],
+['curl_inverso','Curl inverso con barra','biceps','Antebrazo y braquial','i','Palmas hacia abajo. Sube la barra sin balanceo con los codos pegados.'],
+['curl_muneca','Curl de muñeca','biceps','Antebrazo (flexores)','i','Antebrazos apoyados, palmas arriba. Sube solo con la muñeca y baja dejando rodar la barra a los dedos.'],
+['curl_muneca_inverso','Curl de muñeca inverso','biceps','Antebrazo (extensores)','i','Antebrazos apoyados, palmas abajo. Sube el dorso de la mano y baja controlado.'],
+['triceps_polea_barra','Extensión de tríceps en polea con barra','triceps','Tríceps','i','Codos pegados al cuerpo. Baja la barra hasta estirar los brazos y sube hasta la horizontal.'],
+['triceps_polea_v','Extensión de tríceps en polea con barra V','triceps','Tríceps','i','Codos fijos a los lados. Extiende del todo y vuelve sin subir los codos.'],
+['triceps_polea_inverso','Extensión de tríceps en polea agarre inverso','triceps','Tríceps','i','Palmas hacia arriba. Extiende hacia abajo con los codos pegados y sube despacio.'],
+['triceps_polea_unilateral','Extensión de tríceps en polea a una mano','triceps','Tríceps','i','Un agarre, codo pegado al costado. Extiende del todo y vuelve controlado.'],
+['ext_triceps_barra_overhead','Extensión de tríceps con barra sobre la cabeza','triceps','Tríceps (cabeza larga)','i','Barra sobre la cabeza con los codos apuntando arriba. Baja detrás de la cabeza y extiende.'],
+['press_frances_mancuernas','Press francés con mancuernas','triceps','Tríceps','i','Tumbado, brazos verticales y palmas enfrentadas. Flexiona solo los codos y extiende.'],
+['press_cerrado','Press de banca agarre cerrado','triceps','Tríceps y pecho','c','Manos a la anchura de los hombros y codos pegados. Baja a la parte baja del pecho y empuja.'],
+['press_cerrado_smith','Press cerrado en multipower','triceps','Tríceps y pecho','c','Agarre a la anchura de los hombros, codos pegados al bajar. Empuja sin bloquear de golpe.'],
+['patada_triceps','Patada de tríceps con mancuerna','triceps','Tríceps','i','Tronco inclinado y brazo pegado al cuerpo. Extiende el codo hacia atrás y vuelve despacio.'],
+['fondos_triceps','Fondos en paralelas para tríceps','triceps','Tríceps','c','Cuerpo vertical y codos hacia atrás. Baja hasta 90° y sube extendiendo.'],
+['fondos_maquina','Fondos en máquina','triceps','Tríceps y pecho','c','Empuja hacia abajo hasta estirar los brazos y sube controlado sin encoger los hombros.'],
+['triceps_maquina','Extensión de tríceps en máquina','triceps','Tríceps','i','Codos apoyados y alineados con el eje. Extiende del todo y vuelve despacio.'],
+['flexiones_diamante','Flexiones cerradas (diamante)','triceps','Tríceps y pecho','c','Manos juntas bajo el pecho. Baja con los codos pegados al cuerpo y empuja.'],
+['sentadilla_frontal','Sentadilla frontal','piernas','Cuádriceps y glúteos','c','Barra sobre los hombros delanteros, codos altos. Baja con el tronco erguido y sube empujando el suelo.'],
+['sentadilla_smith','Sentadilla en multipower','piernas','Cuádriceps y glúteos','c','Pies algo adelantados. Baja con la espalda recta hasta que los muslos queden paralelos y sube.'],
+['sentadilla_sumo','Sentadilla sumo con mancuerna','piernas','Cuádriceps, aductores y glúteos','c','Piernas abiertas y puntas hacia fuera. Baja con el tronco erguido sujetando la mancuerna entre las piernas.'],
+['sentadilla_caja','Sentadilla a cajón','piernas','Cuádriceps y glúteos','c','Baja hasta rozar un cajón o banco y sube sin dejarte caer.'],
+['sentadilla_libre','Sentadilla sin peso','piernas','Cuádriceps y glúteos','c','Pies a la anchura de los hombros. Baja como para sentarte, talones apoyados, y sube.'],
+['prensa_pies_juntos','Prensa con pies juntos','piernas','Cuádriceps','c','Pies juntos en la parte media de la plataforma. Baja controlado sin despegar la zona lumbar.'],
+['zancada_atras','Zancada atrás con mancuernas','piernas','Cuádriceps y glúteos','c','Da un paso atrás y baja la rodilla casi al suelo. Empuja con la pierna de delante para volver.'],
+['zancadas_barra','Zancadas caminando con barra','piernas','Cuádriceps y glúteos','c','Barra en la espalda. Avanza dando zancadas largas y controladas, tronco erguido.'],
+['step_up','Subida al cajón con mancuernas','piernas','Cuádriceps y glúteos','c','Sube al cajón empujando con la pierna de arriba, sin impulsarte con la de abajo. Baja despacio.'],
+['split_squat','Sentadilla estática (split squat)','piernas','Cuádriceps y glúteos','c','Un pie delante y otro detrás. Baja en vertical hasta casi tocar el suelo con la rodilla y sube.'],
+['ext_cuadriceps_unilateral','Extensión de cuádriceps a una pierna','piernas','Cuádriceps','i','Extiende la rodilla del todo, aprieta un segundo y baja despacio.'],
+['curl_femoral_pie','Curl femoral de pie','piernas','Isquiotibiales','i','En la máquina, flexiona la rodilla llevando el talón al glúteo sin mover la cadera.'],
+['peso_muerto_rumano_mancuernas','Peso muerto rumano con mancuernas','piernas','Isquiotibiales y glúteos','c','Rodillas algo flexionadas. Baja las mancuernas pegadas a las piernas llevando la cadera atrás y sube.'],
+['peso_muerto_rigidas','Peso muerto con piernas rígidas','piernas','Isquiotibiales','c','Piernas casi rectas y espalda recta. Baja hasta notar el estiramiento detrás de las piernas y sube.'],
+['peso_muerto_sumo','Peso muerto sumo','piernas','Glúteos, cuádriceps y aductores','c','Piernas muy abiertas, manos por dentro. Espalda recta, empuja el suelo y extiende la cadera.'],
+['peso_muerto_hexagonal','Peso muerto con barra hexagonal','piernas','Cuádriceps, glúteos e isquios','c','Dentro de la barra, agarres a los lados. Espalda recta, empuja con las piernas hasta quedar erguido.'],
+['buenos_dias','Buenos días con barra','piernas','Isquiotibiales y lumbar','c','Barra en la espalda, rodillas algo flexionadas. Inclina el tronco llevando la cadera atrás y vuelve. Peso moderado.'],
+['glute_ham','Curl nórdico / glute-ham','piernas','Isquiotibiales','c','Rodillas apoyadas y pies sujetos. Baja el tronco despacio con las piernas y vuelve.'],
+['aductores_maquina','Aducción de cadera en máquina','piernas','Aductores','i','Junta las piernas contra los apoyos de forma controlada y abre despacio.'],
+['gemelo_prensa','Gemelos en prensa','piernas','Gemelos','i','Puntas de los pies en el borde de la plataforma. Empuja con los tobillos y baja estirando.'],
+['gemelo_smith','Gemelos en multipower','piernas','Gemelos','i','Puntas sobre un escalón. Sube lo más alto posible y baja estirando del todo.'],
+['gemelo_burro','Gemelos tipo burro','piernas','Gemelos','i','Tronco inclinado hacia delante. Sube sobre las puntas y baja estirando.'],
+['gemelo_mancuerna','Gemelos de pie con mancuernas','piernas','Gemelos','i','Puntas sobre un escalón y mancuernas a los lados. Sube, aguanta un segundo y baja lento.'],
+['puente_unilateral','Puente de glúteo a una pierna','gluteos','Glúteo mayor','i','Tumbado, un pie apoyado y la otra pierna arriba. Sube la cadera apretando el glúteo y baja despacio.'],
+['puente_suelo','Puente de glúteo en el suelo','gluteos','Glúteo mayor','i','Tumbado, rodillas flexionadas. Sube la cadera hasta alinear tronco y muslos y aprieta arriba.'],
+['patada_cuadrupedia','Patada de glúteo en cuadrupedia','gluteos','Glúteo mayor','i','A cuatro patas. Lleva una pierna atrás y arriba sin arquear la zona lumbar.'],
+['hiperextension_inversa','Hiperextensión inversa','gluteos','Glúteos e isquios','i','Tronco apoyado en el banco. Sube las piernas hasta la horizontal apretando glúteos y baja controlado.'],
+['step_up_rodilla','Subida al cajón con elevación de rodilla','gluteos','Glúteos y cuádriceps','c','Sube al cajón y eleva la rodilla contraria al final. Baja controlado.'],
+['crunch_maquina','Crunch en máquina','core','Recto abdominal','i','Agarra los mangos y flexiona el tronco hacia las rodillas usando el abdomen. Vuelve despacio.'],
+['crunch_inverso','Crunch inverso','core','Abdomen inferior','i','Tumbado, rodillas flexionadas. Lleva las rodillas al pecho despegando la cadera y baja lento.'],
+['crunch_declinado','Crunch en banco declinado','core','Recto abdominal','i','Pies sujetos en el banco declinado. Sube el tronco enrollando la espalda y baja controlado.'],
+['crunch_oblicuo','Crunch oblicuo','core','Oblicuos','i','Tumbado de lado o con giro. Lleva el codo hacia la rodilla contraria contrayendo el costado.'],
+['bicicleta','Abdominales en bicicleta','core','Recto abdominal y oblicuos','i','Tumbado, manos tras la cabeza. Lleva el codo a la rodilla contraria alternando, sin tirar del cuello.'],
+['dead_bug','Dead bug','core','Core profundo','i','Boca arriba, brazos y rodillas arriba. Estira brazo y pierna contrarios sin despegar la zona lumbar.'],
+['plancha_lateral','Plancha lateral','core','Oblicuos','i','Apoyado en un antebrazo, cuerpo recto de lado. Aguanta sin dejar caer la cadera.'],
+['pallof','Press Pallof','core','Core antirrotación','i','De lado a la polea. Empuja el agarre al frente y aguanta sin dejar que la polea te gire.'],
+['lenador_polea','Leñador en polea','core','Oblicuos','i','Polea alta. Lleva el agarre en diagonal hacia la cadera contraria girando el tronco.'],
+['flexion_lateral','Flexión lateral con mancuerna','core','Oblicuos','i','De pie con una mancuerna. Inclínate hacia ese lado y vuelve usando el costado contrario.'],
+['elev_rodillas_paralelas','Elevación de rodillas en paralelas','core','Abdomen inferior','i','Apoyado en los antebrazos o en paralelas. Sube las rodillas al pecho sin balancearte.'],
+['sit_up','Abdominales completos (sit-up)','core','Recto abdominal','i','Pies apoyados. Sube el tronco hasta quedar sentado y baja controlado.'],
+['tijeras','Tijeras','core','Abdomen inferior','i','Tumbado, piernas estiradas y algo elevadas. Sube y baja alternando sin despegar la zona lumbar.'],
+['toques_talon','Toques de talón','core','Oblicuos','i','Tumbado con rodillas flexionadas. Despega los hombros y toca un talón y otro con las manos.']
 ];
 const EX={};EXL.forEach(([id,n,g,m,t,cue,img])=>{EX[id]={id,n,g,m,t,cue:cue||(OLD[id]&&OLD[id].cue)||'',img:img||id}});
 try{Object.values(JSON.parse(localStorage.getItem('vf_custom'))||{}).forEach(x=>{if(x&&x.id)EX[x.id]=x})}catch{}
@@ -483,7 +599,8 @@ const IC={mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 
 Object.keys(IC).forEach(k=>IC[k]=IC[k].replace(/(\d)\.(\d)00/g,'$1.$2'));
 const ic=(n,cls='')=>`<svg class="ic ${n==='play'?'fill':''} ${cls}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
 let CIMG=ls.get('vf_cimg',{});
-const imgSrc=(id,i=0)=>{if(CIMG[id])return CIMG[id];const k=EX[id]?.img||id,f=IMG[k];return f&&f[i]?'data:image/webp;base64,'+f[i]:ICON};
+const EXIMG=new Set(["press_inclinado_barra", "press_declinado_barra", "press_smith_plano", "press_smith_inclinado", "press_inclinado_maquina", "press_declinado_maquina", "press_neutro_mancuernas", "aperturas_mancuernas", "aperturas_inclinadas", "aperturas_polea_banco", "aperturas_polea_inclinado", "press_polea_pie", "pullover_mancuerna", "flexiones_declinadas", "flexiones_inclinadas", "jalon_supino", "jalon_cerrado", "jalon_unilateral", "jalon_brazos_rectos", "dominadas_supinas", "dominadas_lastre", "remo_mancuernas_dos", "remo_supino_barra", "remo_pecho_apoyado", "remo_unilateral_polea", "remo_maquina_alta", "remo_smith", "remo_invertido", "remo_landmine", "encogimientos_barra", "encogimientos_mancuernas", "rack_pull", "press_arnold", "press_hombro_polea", "press_smith_hombro", "press_hombro_unilateral", "elev_frontal", "elev_frontal_polea", "elev_frontal_disco", "elev_lateral_sentado", "pajaros_polea", "pajaros_maquina", "pajaros_banco", "remo_menton", "remo_menton_polea", "rotacion_externa_polea", "curl_barra_z", "curl_alterno", "curl_concentrado", "curl_martillo_cuerda", "curl_martillo_cruzado", "curl_predicador_maquina", "curl_predicador_polea", "curl_maquina", "curl_spider", "curl_polea_alta", "curl_arrastre", "curl_zottman", "curl_inverso", "curl_muneca", "curl_muneca_inverso", "triceps_polea_barra", "triceps_polea_v", "triceps_polea_inverso", "triceps_polea_unilateral", "ext_triceps_barra_overhead", "press_frances_mancuernas", "press_cerrado", "press_cerrado_smith", "patada_triceps", "fondos_triceps", "fondos_maquina", "triceps_maquina", "flexiones_diamante", "sentadilla_frontal", "sentadilla_smith", "sentadilla_sumo", "sentadilla_caja", "sentadilla_libre", "prensa_pies_juntos", "zancada_atras", "zancadas_barra", "step_up", "split_squat", "ext_cuadriceps_unilateral", "curl_femoral_pie", "peso_muerto_rumano_mancuernas", "peso_muerto_rigidas", "peso_muerto_sumo", "peso_muerto_hexagonal", "buenos_dias", "glute_ham", "aductores_maquina", "gemelo_prensa", "gemelo_smith", "gemelo_burro", "gemelo_mancuerna", "puente_unilateral", "puente_suelo", "patada_cuadrupedia", "hiperextension_inversa", "step_up_rodilla", "crunch_maquina", "crunch_inverso", "crunch_declinado", "crunch_oblicuo", "bicicleta", "dead_bug", "plancha_lateral", "pallof", "lenador_polea", "flexion_lateral", "elev_rodillas_paralelas", "sit_up", "tijeras", "toques_talon"]);
+const imgSrc=(id,i=0)=>{if(CIMG[id])return CIMG[id];const k=EX[id]?.img||id,f=IMG[k];if(!f&&EXIMG.has(k))return `img/${k}_${i}.webp`;return f&&f[i]?'data:image/webp;base64,'+f[i]:ICON};
 const fx=id=>EX[id]?.own?`<div class="fx"><img src="${imgSrc(id)}" alt="${esc(EX[id].n)}" width="384" height="256" style="${CIMG[id]?'':'object-fit:contain;padding:18px'}">${CIMG[id]?'':'<span class="lbl">Imagen no disponible</span>'}<button class="btn sm fxph" onclick="event.stopPropagation();pickPhoto(\'${id}\')">${ic('plus')} ${CIMG[id]?'Cambiar foto':'Subir foto'}</button></div>`:`<div class="fx"><img src="${imgSrc(id,0)}" alt="Posición inicial de ${esc(EX[id]?.n||'')}" width="384" height="256"><img src="${imgSrc(id,1)}" alt="Posición final" width="384" height="256"><span class="lbl">${ic('play')} Inicio → final</span></div>`;
 
 // ===== ESTADO =====
@@ -1051,13 +1168,13 @@ function importMine(j,dias){
   savePlan(Object.assign({},PLAN,{source:PLAN.source==='ia'?'ia':'mine',days,adjusted:Date.now(),tips:(j.consejos||[]).map(String).slice(0,8)}));tDay=null;currentWorkout=null;localStorage.removeItem('vf_draft');openEx.clear();closeSheet();showView('training');toast('¡Rutina ajustada! Mismos ejercicios, nuevos pesos')}
 
 // ===== ARRANQUE =====
-const NEWS_ID='2026-11-ejpropios';
+const NEWS_ID='2026-11-catalogo';
 function boot(){
   setTheme(ls.get('vf_theme','dark'));migrate();
   const d=ls.get('vf_draft',null);if(d&&!d.completed&&d.date===todayKey()&&PLAN?.days[d.dayIdx]&&PLAN.days[d.dayIdx].title===d.title)currentWorkout=d;
   if(!ls.get('vf_profile',{}).setup||!PLAN){wz=P();if(!localStorage.getItem('vf_profile'))wz.trainingDays=[1,3,5];wzStep=0;renderWiz();return}
   showView('home');
-  if(ls.get('vf_news','')!==NEWS_ID){ls.set('vf_news',NEWS_ID);openSheet(`<div class="grab"></div><div class="eyebrow">Novedad</div><h2>Añadir ejercicios, más fácil</h2><p class="muted small" style="margin-bottom:16px">Marca varios a la vez por grupo muscular y crea los que no estén en la lista, con su foto si quieres.</p><button class="btn block" onclick="closeSheet();openRoutine()">Ir a mi rutina</button><button class="btn ghost block" style="margin-top:9px" onclick="closeSheet()">Más tarde</button>`)}
+  if(ls.get('vf_news','')!==NEWS_ID){ls.set('vf_news',NEWS_ID);openSheet(`<div class="grab"></div><div class="eyebrow">Novedad</div><h2>180 ejercicios con foto</h2><p class="muted small" style="margin-bottom:16px">Ahora hay muchos más ejercicios en cada grupo muscular. Si aun así falta alguno, puedes crearlo tú.</p><button class="btn block" onclick="closeSheet();openRoutine()">Ir a mi rutina</button><button class="btn ghost block" style="margin-top:9px" onclick="closeSheet()">Más tarde</button>`)}
 }
 function initShell(){
   $('logoImg').src=ICON;
