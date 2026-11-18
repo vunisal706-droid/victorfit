@@ -992,9 +992,29 @@ function saveMeal(){const diet=ls.get('vf_diet',null),{di,mi}=edM,src=diet.days[
 function restoreMeal(){const diet=ls.get('vf_diet',null),{di,mi}=edM,m=diet.days[di].meals[mi];if(m.orig){Object.assign(m,m.orig);delete m.orig;delete m.edited;if(!m.est)delete m.est}ls.set('vf_diet',diet);closeSheet();renderNutrition();toast('Comida restaurada')}
 // Al rehacer la propuesta automática se conservan las comidas que has cambiado
 function keepEdits(old,nu){if(!old||!nu)return nu;old.days.forEach((d,i)=>d.meals.forEach(m=>{if(!m.edited)return;const t=nu.days[i]?.meals.find(x=>x.name===m.name);if(t)Object.assign(t,{items:m.items,kcal:m.kcal,p:m.p,c:m.c,g:m.g,est:true,edited:true,orig:{items:t.items,kcal:t.kcal,p:t.p,c:t.c,g:t.g}})}));return nu}
+// Productos para cubrir lo que falta: [nombre, p, c, g por 100 g, veg(0 carne/pescado,1 vegetariano,2 vegano), gramos por unidad, unidad, unidades]
+const RELLENO={
+ p:[['Pechuga de pollo o pavo',23,0,2,0,120,'filete','filetes'],['Atún al natural',24,0,1,0,52,'lata pequeña','latas pequeñas'],['Queso fresco batido 0 %',8,3.5,.2,1,125,'tarrina pequeña','tarrinas pequeñas'],['Yogur proteico o skyr',10,4,.2,1,150,'yogur','yogures'],
+  ['Claras de huevo',11,.7,.2,1,33,'clara','claras'],['Huevos',12.5,1,10,1,60,'huevo','huevos'],['Pavo en lonchas',20,1.5,2,0,15,'loncha','lonchas'],['Legumbres cocidas',8,17,1.5,2,125,'cazo','cazos'],['Tofu firme',14,2,8,2,250,'bloque','bloques'],['Proteína en polvo',78,8,6,2,30,'cacito','cacitos']],
+ c:[['Pan integral',9,45,3,2,30,'rebanada','rebanadas'],['Arroz cocido',2.7,28,.3,2,160,'taza','tazas'],['Copos de avena',13,60,7,2,10,'cucharada sopera','cucharadas soperas'],['Plátano',1.1,20,.3,2,120,'plátano','plátanos'],
+  ['Patata cocida o asada',2,17,.1,2,150,'patata mediana','patatas medianas'],['Pasta cocida',5,30,1,2,140,'taza','tazas'],['Fruta (manzana, naranja…)',.8,13,.2,2,150,'pieza','piezas'],['Legumbres cocidas',8,17,1.5,2,125,'cazo','cazos']],
+ g:[['Aceite de oliva virgen extra',0,0,100,2,10,'cucharada','cucharadas'],['Frutos secos naturales',20,12,52,2,25,'puñado','puñados'],['Aguacate',2,2,15,2,140,'aguacate','aguacates'],['Crema de cacahuete 100 %',25,20,50,2,15,'cucharada','cucharadas'],
+  ['Salmón o caballa',20,0,13,0,150,'rodaja','rodajas'],['Queso curado',25,0,32,1,30,'loncha gruesa','lonchas gruesas'],['Huevos',12.5,1,10,1,60,'huevo','huevos']]};
+let relCtx=null;
+function rellenar(k,d,di){const diet=ls.get('vf_diet',null);if(!diet)return;const fo=FOODP()||{},vl=fo.type==='vegana'?2:fo.type==='vegetariana'?1:0,NOMB={p:'proteína',c:'hidratos',g:'grasas'},idx={p:1,c:2,g:3}[k];
+  const L=RELLENO[k].filter(x=>x[4]>=vl).map(x=>{let g=d/(x[idx]/100);g=g>=60?Math.round(g/10)*10:Math.round(g/5)*5;const u=g/x[5];return {x,g,u,kcal:Math.round((4*x[1]+4*x[2]+9*x[3])*g/100),extra:['p','c','g'].filter(m=>m!==k).map(m=>{const v=Math.round(x[{p:1,c:2,g:3}[m]]*g/100);return v>=3?`${v} g de ${NOMB[m]}`:''}).filter(Boolean)}}).filter(o=>o.u<=8).sort((a,b)=>a.kcal-b.kcal);
+  relCtx={di,L};const day=diet.days[di];
+  openSheet(`<div class="grab"></div><div class="eyebrow">${esc(day.name)} · faltan ${d} g de ${NOMB[k]}</div><h2>Para completar tu ${NOMB[k]}</h2><p class="small muted" style="margin-bottom:12px">Elige uno de estos productos (ordenados de menos a más calorías). Con <b>Añadir</b> se mete en la comida que elijas y se recalcula todo.</p>
+  <label class="lbl" for="relMeal">Añadir a</label><select id="relMeal" class="inp" style="margin-bottom:12px">${day.meals.map((m,i)=>`<option value="${i}" ${/merienda|media/i.test(m.name)?'selected':''}>${esc(m.name)}</option>`).join('')}</select>
+  ${L.map((o,i)=>`<div class="between" style="padding:11px 0;border-top:1px solid var(--border);gap:10px"><div><b>${esc(o.x[0])}</b><div class="small" style="color:var(--accent-t)">${o.g} g ≈ ${cuantos(o.u)} ${Math.round(o.u*2)/2>1?o.x[7]:o.x[6]}</div><div class="small muted">~${o.kcal} kcal${o.extra.length?' · también '+o.extra.join(', '):''}</div></div><button class="btn sm" onclick="addRelleno(${i})">${ic('plus')} Añadir</button></div>`).join('')}
+  <p class="note" style="margin-top:10px">Cantidades aproximadas. Si prefieres repartirlo, puedes poner la mitad de dos productos distintos.</p>`)}
+function addRelleno(i){const diet=ls.get('vf_diet',null),{di,L}=relCtx,o=L[i],mi=+$('relMeal').value,m=diet.days[di].meals[mi];
+  if(!m.orig)m.orig={items:m.items,kcal:m.kcal,p:m.p,c:m.c,g:m.g,est:m.est};const base=macMeal(m),add={kcal:o.kcal,p:o.x[1]*o.g/100,c:o.x[2]*o.g/100,g:o.x[3]*o.g/100};
+  m.items=[...m.items,`${o.g} g de ${o.x[0].toLowerCase()}`];['kcal','p','c','g'].forEach(k=>m[k]=Math.round(base[k]+add[k]));m.edited=true;delete m.est;
+  ls.set('vf_diet',diet);closeSheet();dietDay=di;renderNutrition();const b=balanceDia(diet,diet.days[di]);toast(`Añadido a ${m.name}. `+(b.av.length?textoAvisos(b):'El día queda equilibrado'))}
 function balanceCard(diet,day,dn){const b=balanceDia(diet,day),row=(l,v,o,u)=>`<div><span>${l} · ${fmt(Math.round(v))} / ${fmt(o)} ${u}</span><div class="pbar"><i style="width:${o?clamp(v/o*100,0,100):0}%;${o&&v>o*1.12?'background:var(--bad)':''}"></i></div></div>`;
   return `<div class="card"><div class="between"><h3>Balance del ${esc(dn.toLowerCase())}</h3><span class="small muted">~${fmt(b.t.kcal)} / ${fmt(b.obj.kcal)} kcal</span></div><div class="macro" style="margin-top:8px">${row('Prot.',b.t.p,b.obj.p,'g')}${row('Hidr.',b.t.c,b.obj.c,'g')}${row('Grasa',b.t.g,b.obj.g,'g')}</div>
-  ${b.av.length?b.av.map(a=>`<div class="banner" style="margin:10px 0 0">${ic('info')}<div>${a.txt}${a.sug?`. Tenlo en cuenta: por ejemplo, ${a.sug} repartidos en el día.`:'. Puedes bajar algo la ración en alguna comida.'}</div></div>`).join(''):`<p class="small muted" style="margin-top:10px">${ic('check','acc')} Macros equilibrados para tu objetivo.</p>`}</div>`}
+  ${b.av.length?b.av.map(a=>`<div class="banner" style="margin:10px 0 0">${ic('info')}<div>${a.txt}${a.sug?`. Tenlo en cuenta: por ejemplo, ${a.sug} repartidos en el día.<div style="margin-top:9px"><button class="btn sm" onclick="rellenar('${a.k}',${a.d},${diet.days.indexOf(day)})">${ic('food')} Ver productos para completarlo</button></div>`:'. Puedes bajar algo la ración en alguna comida.'}</div></div>`).join(''):`<p class="small muted" style="margin-top:10px">${ic('check','acc')} Macros equilibrados para tu objetivo.</p>`}</div>`}
 
 // ===== SUPLEMENTOS =====
 // Solo suplementos con buena evidencia y seguros para un adulto sano. Las dosis salen del perfil.
@@ -1347,13 +1367,13 @@ function importMine(j,dias){
   savePlan(Object.assign({},PLAN,{source:PLAN.source==='ia'?'ia':'mine',days,adjusted:Date.now(),tips:(j.consejos||[]).map(String).slice(0,8)}));tDay=null;currentWorkout=null;localStorage.removeItem('vf_draft');openEx.clear();closeSheet();showView('training');toast('¡Rutina ajustada! Mismos ejercicios, nuevos pesos')}
 
 // ===== ARRANQUE =====
-const NEWS_ID='2026-11-dieta-suplementos';
+const NEWS_ID='2026-11-relleno-macros';
 function boot(){
   setTheme(ls.get('vf_theme','dark'));migrate();
   const d=ls.get('vf_draft',null);if(d&&!d.completed&&d.date===todayKey()&&PLAN?.days[d.dayIdx]&&PLAN.days[d.dayIdx].title===d.title)currentWorkout=d;
   if(!ls.get('vf_profile',{}).setup||!PLAN){wz=P();if(!localStorage.getItem('vf_profile'))wz.trainingDays=[1,3,5];wzStep=0;renderWiz();return}
   showView('home');
-  if(ls.get('vf_news','')!==NEWS_ID){ls.set('vf_news',NEWS_ID);openSheet(`<div class="grab"></div><div class="eyebrow">Novedad</div><h2>Dieta a tu manera y suplementos</h2><p class="muted small" style="margin-bottom:16px">Edita cualquier comida con el lápiz: la app recalcula los macros, avisa de lo que falta y actualiza la compra. Las cantidades traen equivalencias caseras (≈ 1 taza, 2 rebanadas…) y hay un nuevo apartado de <b>Suplementos</b> con dosis según tu perfil y control diario.</p><button class="btn block" onclick="closeSheet();showView('nutrition')">Ver mi dieta</button><button class="btn ghost block" style="margin-top:9px" onclick="closeSheet()">Más tarde</button>`)}
+  if(ls.get('vf_news','')!==NEWS_ID){ls.set('vf_news',NEWS_ID);openSheet(`<div class="grab"></div><div class="eyebrow">Novedad</div><h2>Completa tus macros</h2><p class="muted small" style="margin-bottom:16px">Cuando a un día le falte proteína, hidratos o grasa, pulsa «Ver productos para completarlo»: te dice cuánto tomar de cada producto y lo añade a la comida que elijas.</p><button class="btn block" onclick="closeSheet();showView('nutrition')">Ver mi dieta</button><button class="btn ghost block" style="margin-top:9px" onclick="closeSheet()">Más tarde</button>`)}
 }
 function initShell(){
   $('logoImg').src=ICON;
